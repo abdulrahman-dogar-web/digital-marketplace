@@ -1,104 +1,94 @@
-# 🌌 CyberNest: The Futuristic AI Marketplace Ecosystem
+# 🌌 CyberNest: Full Launch & Deployment Guide (Step 0 to Live)
 
-Welcome to **CyberNest**, a cinematic, full-stack digital civilization and marketplace. This platform is designed as an investor-level SaaS product, featuring a high-polish cyberpunk aesthetic, intelligent AI assistance, and a complete economic ecosystem.
-
----
-
-## 🚀 1. High-Level Overview
-
-CyberNest is a multi-role platform where users can:
-- **Explore:** Discover elite neural assets, AI tools, and autonomous scripts.
-- **Acquire:** Purchase digital products through a secure escrow-style payment flow.
-- **Sell:** Apply for Operator status and manage a professional digital storefront.
-- **Progress:** Earn XP, unlock badges, and climb the global Leaderboard.
-- **Immersion:** Engage with the Encrypted Archives (Lore) and discover hidden Easter Eggs.
+Welcome to the definitive guide for launching **CyberNest**. This document will take you from a blank screen to a fully hosted, AI-powered digital civilization.
 
 ---
 
-## 🛠️ 2. Rapid Setup & Deployment
+## 🛠️ PHASE 1: Supabase Backend Setup (The Brain)
 
-### Local Environment
-1.  **Clone the Repository**
-2.  **Initialize Subspace (Install Dependencies):**
-    ```bash
-    npm install
-    ```
-3.  **Boot the Nexus (Run Development Server):**
-    ```bash
-    npm run dev
-    ```
-4.  **Access Terminal:** Navigate to `http://localhost:3000`.
+### Step 1: Create a Supabase Account
+1.  Go to [supabase.com](https://supabase.com/).
+2.  Click **"Start your project"** and sign in with GitHub or Email.
+3.  Click **"New Project"**.
+4.  **Name:** `CyberNest`
+5.  **Database Password:** Generate one and **SAVE IT** (you won't see it again).
+6.  **Region:** Select the one closest to your target audience (e.g., Singapore or US East).
+7.  Click **"Create new project"** and wait ~2 mins for the database to provision.
 
-### Production Transmission (Vercel + Supabase)
-1.  **Database Setup:** Execute the provided `schema.sql` in your Supabase SQL Editor to initialize the 15+ required tables.
-2.  **Environment Variables:** Add your Supabase URL and Anon Key to your environment variables (`.env.local` or Vercel Settings).
-3.  **Deploy:** Connect your repository to Vercel and initiate the build.
+### Step 2: Initialize the Database (Tables & Schema)
+1.  In your Supabase sidebar, click the **"SQL Editor"** icon (looks like `>_`).
+2.  Click **"+ New query"**.
+3.  Open the `schema.sql` file provided in this repository.
+4.  **Copy the entire content** of `schema.sql` and paste it into the Supabase SQL Editor.
+5.  Click **"Run"**. You should see "Success. No rows returned."
+6.  *Verification:* Click the "Table Editor" icon in the sidebar. You should now see tables like `users`, `products`, `transactions`, etc.
 
----
-
-## 🧭 3. Exploring the Nexus (Controls)
-
-### Navigation Interface
-- **Top Navbar:** Your primary gateway to the Market, Vault, Lore, and Elite Leaderboard.
-- **Neural Cart:** Tracks pending acquisitions.
-- **User Node (Dashboard):** Accessible via the profile icon, managing your internal node state.
-
-### Discovery Protocols
-- **Live Search:** Use the search icon in the navbar to scan the nexus for specific neural signatures.
-- **Advanced Filters:** In the Marketplace, recalibrate results by Category (Automation, SaaS, etc.) or Neural Rarity (Common to Legendary).
-- **Quick Preview:** Click the "Eye" icon on any product card for an instant neural scan without leaving the feed.
-
-### Support
-- **Direct WhatsApp Support:** Reach the Nexus Council at `+923001412943` via the floating button above the AI assistant.
+### Step 3: Configure Storage (Assets & Receipts)
+1.  Sidebar > **Storage**.
+2.  Click **"New Bucket"**.
+3.  **Name:** `screenshots` | **Public:** TOGGLE ON (needed for admin verification).
+4.  Click **"New Bucket"** again.
+5.  **Name:** `assets` | **Public:** TOGGLE OFF (this keeps your paid products secure).
 
 ---
 
-## 🔐 4. Manual Backend & Authentication Configuration
+## 🔐 PHASE 2: Google Authentication Setup (The Gateway)
 
-To make the platform fully production-ready, the following manual steps are required in your **Supabase Dashboard**:
+### Step 4: Google Cloud Console
+1.  Go to [Google Cloud Console](https://console.cloud.google.com/).
+2.  Create a **New Project** named `CyberNest-Auth`.
+3.  Sidebar > **APIs & Services > OAuth consent screen**.
+4.  User Type: **External** > Create.
+5.  App Name: `CyberNest` | Support Email: Your email.
+6.  Sidebar > **Credentials > Create Credentials > OAuth client ID**.
+7.  Application type: **Web application**.
+8.  **Authorized redirect URIs:** You will get this from Supabase in the next step.
 
-### 1. Supabase Auth (Google Login)
-1.  Go to **Authentication > Providers** in Supabase.
-2.  Enable **Google**.
-3.  Enter your **Google Client ID** and **Client Secret** (obtain these from the Google Cloud Console).
-4.  Add your production URL to the "Redirect URIs" list.
-5.  In the code (`src/app/auth/login/page.tsx`), the "Google Login" button is ready to be hooked into `supabase.auth.signInWithOAuth({ provider: 'google' })`.
-
-### 2. Manual Payouts & Screenshot Storage
-1.  Go to **Storage** in Supabase.
-2.  Create two buckets: `screenshots` (public: true) and `assets` (public: false).
-3.  Sellers upload assets to the `assets` bucket.
-4.  Buyers upload payment proof to the `screenshots` bucket.
-5.  Admins verify the `screenshots` bucket links via the **Transaction Vault** in the Admin Dashboard.
-
-### 3. Real-time Status Sync
-1.  Enable **Realtime** on the `transactions` and `notifications` tables in the Supabase Database settings.
-2.  This allows the Admin Dashboard to "actively" show new payments without refreshing.
+### Step 5: Link Google to Supabase
+1.  Back in **Supabase** > Sidebar > **Authentication > Providers**.
+2.  Find **Google** and toggle it ON.
+3.  Copy the **"Callback URL"** shown in Supabase.
+4.  Paste this into Google Cloud Console's **"Authorized redirect URIs"** and save.
+5.  Google will give you a **Client ID** and **Client Secret**.
+6.  Paste these back into the Supabase Google Provider settings and click **Save**.
 
 ---
 
-## 🛠️ 5. Operator & Admin Management
+## 🚀 PHASE 3: Vercel Deployment (The Hosting)
 
-### Operator Portal (Seller Dashboard)
-- **URL:** `/seller/dashboard`
-- **Asset Initialization:** Use the "Initialize New Asset" modal to upload packages and set rarity.
-
-### Neural Command Center (Admin Dashboard)
-- **URL:** `/admin/dashboard`
-- **Default Auth:** Identity: `1` | Key: `1`
-- **Global Config:**
-    - Change **Platform Name** and **Logo** dynamically.
-    - Update the global **WhatsApp Support Number**.
-    - Adjust the **Nexus Protocol Fee** (Commission %) via a slider.
-    - Manage **Citizen Nodes** (Ban/Restore users).
+### Step 6: Host the Frontend
+1.  Go to [vercel.com](https://vercel.com/) and sign in with GitHub.
+2.  Click **"Add New" > "Project"**.
+3.  Import your **CyberNest** repository.
+4.  **Environment Variables:** This is the most important part. Expand this section and add:
+    - `NEXT_PUBLIC_SUPABASE_URL`: (Find this in Supabase sidebar > Project Settings > API)
+    - `NEXT_PUBLIC_SUPABASE_ANON_KEY`: (Find this in Supabase sidebar > Project Settings > API)
+5.  Click **"Deploy"**.
+6.  Once finished, Vercel will give you a domain (e.g., `cybernest.vercel.app`).
 
 ---
 
-## 🏗️ 6. Customizing the Neural Core
+## 📡 PHASE 4: Final Connection (Live Status)
 
-- **Branding:** All neon variables are in `src/app/globals.css`. Modify `--cyber-blue`, `--cyber-purple`, and `--cyber-pink`.
-- **Lore:** Edit `src/app/lore/page.tsx` to add more encrypted narrative logs.
+### Step 7: Update Redirects
+1.  In **Supabase > Authentication > URL Configuration**.
+2.  Set **Site URL** to your Vercel URL (e.g., `https://cybernest.vercel.app`).
+3.  Add your domain to **Redirect URIs**.
 
 ---
 
-**CyberNest is now operational. Welcome to the future of digital commerce.**
+## 🧭 PHASE 5: Admin Management (The Controls)
+
+### Accessing your Command Center
+- **URL:** `your-domain.com/admin/dashboard`
+- **Identity:** `1`
+- **Key:** `1`
+
+### Daily Operations
+1.  **Approving Payments:** When a user buys, their transaction appears in **Payments**. Click "Receipt" to see their screenshot, then click **Approve**. The product is then instantly released to their dashboard.
+2.  **Adding Products:** Go to **Assets** to add global products or let sellers use their own dashboard at `/seller/dashboard`.
+3.  **Global Config:** Change the site name, logo, or your **WhatsApp number (+923001412943)** directly from the **Platform Config** tab.
+
+---
+
+**CONGRATULATIONS.** Your futuristic digital civilization is now live on the global subspace network.
