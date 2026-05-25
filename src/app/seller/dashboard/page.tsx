@@ -1,11 +1,9 @@
 "use client";
 
-import { useState } from 'react';
-import { motion } from 'framer-motion';
 import { GlobalLayout } from '@/components/layout/GlobalLayout';
 import { GlassCard } from '@/components/ui/GlassCard';
 import { NeonButton } from '@/components/ui/NeonButton';
-import { Upload, Plus, Package, MessageSquare, TrendingUp } from 'lucide-react';
+import { Plus, Package, MessageSquare, TrendingUp } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export default function SellerDashboard() {

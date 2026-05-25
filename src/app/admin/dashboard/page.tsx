@@ -1,11 +1,11 @@
 "use client";
 
-import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { GlobalLayout } from '@/components/layout/GlobalLayout';
 import { GlassCard } from '@/components/ui/GlassCard';
 import { NeonButton } from '@/components/ui/NeonButton';
-import { BarChart3, Users, DollarSign, Package, CheckCircle, Clock, XCircle } from 'lucide-react';
+import { BarChart3, Users, DollarSign, Package, CheckCircle, Clock, XCircle, Shield } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 const MOCK_TRANSACTIONS = [
   { id: 'TX-9021', user: 'Neural_Drifter', product: 'AI Agent Script', amount: 29, status: 'pending', method: 'Easypaisa' },
@@ -114,6 +114,3 @@ export default function AdminDashboard() {
     </GlobalLayout>
   );
 }
-
-import { Shield } from 'lucide-react';
-import { cn } from '@/lib/utils';

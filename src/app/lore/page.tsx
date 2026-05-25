@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from 'framer-motion';
 import { GlobalLayout } from '@/components/layout/GlobalLayout';
 import { GlassCard } from '@/components/ui/GlassCard';
 import { FileText, Lock, Eye } from 'lucide-react';

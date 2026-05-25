@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from 'react';
-import { motion } from 'framer-motion';
 import { GlobalLayout } from '@/components/layout/GlobalLayout';
 import { ProductCard } from '@/components/marketplace/ProductCard';
 import { Product, Rarity } from '@/types';
