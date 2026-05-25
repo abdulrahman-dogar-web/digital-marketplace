@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { GlobalLayout } from '@/components/layout/GlobalLayout';
@@ -10,61 +10,29 @@ import { ProductCard } from '@/components/marketplace/ProductCard';
 import { BootSequence } from '@/components/layout/BootSequence';
 import { NexusActivityFeed } from '@/components/layout/NexusActivityFeed';
 import { Product } from '@/types';
-import { Terminal, ShoppingBag, Shield, Zap } from 'lucide-react';
-
-const FEATURED_PRODUCTS: Product[] = [
-  {
-    id: '1',
-    name: 'Neural Automation Suite',
-    slug: 'neural-automation-suite',
-    description: 'A complete AI-driven automation framework for futuristic SaaS management.',
-    price: 299,
-    category: { id: '1', name: 'Automation', slug: 'automation' },
-    rarity: 'Legendary',
-    rarity_score: 98,
-    image_url: 'https://images.unsplash.com/photo-1620712943543-bcc4628c9759?auto=format&fit=crop&q=80&w=800',
-    image_urls: ['https://images.unsplash.com/photo-1620712943543-bcc4628c9759?auto=format&fit=crop&q=80&w=800'],
-    seller_id: 'seller1',
-    created_at: new Date().toISOString(),
-    is_approved: true,
-    status: 'published'
-  } as unknown as any, // eslint-disable-line @typescript-eslint/no-explicit-any
-  {
-    id: '2',
-    name: 'Cyber Nexus Prompt Pack',
-    slug: 'cyber-nexus-prompt-pack',
-    description: '1000+ elite prompts for generative AI mastery and high-conversion outputs.',
-    price: 49,
-    category: { id: '2', name: 'Prompts', slug: 'prompts' },
-    rarity: 'Elite',
-    rarity_score: 85,
-    image_url: 'https://images.unsplash.com/photo-1675271591211-126ad94e495d?auto=format&fit=crop&q=80&w=800',
-    image_urls: ['https://images.unsplash.com/photo-1675271591211-126ad94e495d?auto=format&fit=crop&q=80&w=800'],
-    seller_id: 'seller2',
-    created_at: new Date().toISOString(),
-    is_approved: true,
-    status: 'published'
-  } as unknown as any, // eslint-disable-line @typescript-eslint/no-explicit-any
-  {
-    id: '3',
-    name: 'Holographic UI Kit',
-    slug: 'holographic-ui-kit',
-    description: 'Next-gen design system for futuristic web applications and immersive interfaces.',
-    price: 89,
-    category: { id: '3', name: 'Design', slug: 'design' },
-    rarity: 'Rare',
-    rarity_score: 65,
-    image_url: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?auto=format&fit=crop&q=80&w=800',
-    image_urls: ['https://images.unsplash.com/photo-1633356122544-f134324a6cee?auto=format&fit=crop&q=80&w=800'],
-    seller_id: 'seller3',
-    created_at: new Date().toISOString(),
-    is_approved: true,
-    status: 'published'
-  } as unknown as any // eslint-disable-line @typescript-eslint/no-explicit-any
-];
+import { Terminal, ShoppingBag, Shield, Zap, Loader2 } from 'lucide-react';
 
 export default function Home() {
   const [booted, setBooted] = useState(false);
+  const [featuredProducts, setFeaturedProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (booted) {
+      const fetchFeatured = async () => {
+        try {
+          const res = await fetch('/api/products');
+          const data = await res.json();
+          setFeaturedProducts(data.slice(0, 3));
+        } catch (err) {
+          console.error(err);
+        } finally {
+          setLoading(false);
+        }
+      };
+      fetchFeatured();
+    }
+  }, [booted]);
 
   if (!booted) {
     return <BootSequence onComplete={() => setBooted(true)} />;
@@ -142,11 +110,19 @@ export default function Home() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {FEATURED_PRODUCTS.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
+          {loading ? (
+            <div className="flex justify-center py-12"><Loader2 className="animate-spin text-cyber-blue" /></div>
+          ) : featuredProducts.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {featuredProducts.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-20 border-2 border-dashed border-white/5 rounded-xl">
+               <p className="text-white/20 uppercase tracking-[0.3em] text-xs">Awaiting Neural Synchronization...</p>
+            </div>
+          )}
         </section>
 
         {/* Live Activity Feed */}

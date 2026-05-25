@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { GlobalLayout } from '@/components/layout/GlobalLayout';
 import { GlassCard } from '@/components/ui/GlassCard';
@@ -11,37 +11,54 @@ import {
   Settings,
   TrendingUp,
   MessageSquare,
-  AlertCircle,
-  X,
-  Upload
+  Upload,
+  Loader2,
+  X
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
-
-const INITIAL_ASSETS = [
-  { name: 'Neural Automation Suite', rarity: 'Legendary', price: '$299', status: 'Approved', color: 'text-cyber-green' },
-  { name: 'Cyber Nexus Prompt Pack', rarity: 'Elite', price: '$49', status: 'Approved', color: 'text-cyber-green' },
-  { name: 'Nexus Security Suite', rarity: 'Legendary', price: '$199', status: 'Pending', color: 'text-cyber-gold' },
-];
+import { Product } from '@/types';
 
 export default function SellerDashboard() {
-  const [assets, setAssets] = useState(INITIAL_ASSETS);
+  const [assets, setAssets] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [newAsset, setNewAsset] = useState({ name: '', price: '', rarity: 'Common' });
+  const [newAsset, setNewAsset] = useState({ name: '', price: '', rarity: 'Common', description: '' });
 
-  const handleAddAsset = (e: React.FormEvent) => {
+  // In a real app, this would be the logged in user's ID
+  const sellerId = "seller-mock-uuid";
+
+  const fetchAssets = useCallback(async () => {
+    setLoading(true);
+    try {
+      const res = await fetch('/api/products');
+      const data = await res.json();
+      setAssets(data);
+    } catch (err) {
+      console.error('Asset retrieval failed', err);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => { fetchAssets(); }, [fetchAssets]);
+
+  const handleAddAsset = async (e: React.FormEvent) => {
     e.preventDefault();
-    setAssets(prev => [
-      ...prev,
-      {
-        name: newAsset.name,
-        rarity: newAsset.rarity,
-        price: `$${newAsset.price}`,
-        status: 'Pending',
-        color: 'text-cyber-gold'
-      }
-    ]);
-    setIsModalOpen(false);
-    setNewAsset({ name: '', price: '', rarity: 'Common' });
+    try {
+      await fetch('/api/products', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...newAsset,
+          sellerId,
+        })
+      });
+      setIsModalOpen(false);
+      setNewAsset({ name: '', price: '', rarity: 'Common', description: '' });
+      fetchAssets();
+    } catch (err) {
+      console.error('Asset initialization failed', err);
+    }
   };
 
   return (
@@ -74,25 +91,6 @@ export default function SellerDashboard() {
               </div>
               <h3 className="text-2xl font-black uppercase text-white tracking-tighter">Operator_X</h3>
               <p className="text-cyber-blue text-[10px] font-black font-mono uppercase tracking-[0.3em] mt-2">Cyber Agent</p>
-              <div className="mt-8 space-y-3">
-                <div className="flex justify-between text-[10px] font-black uppercase tracking-widest px-2">
-                  <span className="text-white/40">Neural XP</span>
-                  <span className="text-white/80">1,240 / 2,000</span>
-                </div>
-                <div className="h-2 bg-white/10 rounded-full overflow-hidden border border-white/5">
-                  <motion.div
-                    initial={{ width: 0 }}
-                    animate={{ width: '62%' }}
-                    className="h-full bg-cyber-blue shadow-[0_0_15px_#00f2ff]"
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="border-t border-white/10 mt-8 pt-8 space-y-2">
-              <button className="w-full text-left px-5 py-3 text-[11px] font-black uppercase tracking-widest text-cyber-blue bg-cyber-blue/10 rounded border-l-4 border-cyber-blue">Overview</button>
-              <button className="w-full text-left px-5 py-3 text-[11px] font-black uppercase tracking-widest text-white/40 hover:text-white hover:bg-white/5 transition-all">Earnings</button>
-              <button className="w-full text-left px-5 py-3 text-[11px] font-black uppercase tracking-widest text-white/40 hover:text-white hover:bg-white/5 transition-all">Analytics</button>
-              <button className="w-full text-left px-5 py-3 text-[11px] font-black uppercase tracking-widest text-white/40 hover:text-white hover:bg-white/5 transition-all">Security</button>
             </div>
           </GlassCard>
 
@@ -120,9 +118,11 @@ export default function SellerDashboard() {
             <GlassCard className="p-0 overflow-hidden border-white/10">
               <div className="p-6 border-b border-white/10 flex justify-between items-center bg-white/5">
                 <h2 className="text-lg font-black uppercase tracking-widest text-white">Global Distribution Table</h2>
-                <span className="text-[10px] font-mono text-white/40 uppercase font-black tracking-widest">STORAGE: 1.2 GB / 5 GB</span>
               </div>
               <div className="overflow-x-auto">
+                {loading ? (
+                   <div className="flex justify-center py-12"><Loader2 className="animate-spin text-cyber-blue" /></div>
+                ) : (
                 <table className="w-full text-left">
                   <thead>
                     <tr className="text-[11px] font-black uppercase tracking-widest text-white/40 border-b border-white/10 bg-white/5">
@@ -135,9 +135,9 @@ export default function SellerDashboard() {
                   </thead>
                   <tbody className="divide-y divide-white/5 text-sm font-mono">
                     <AnimatePresence>
-                      {assets.map((asset, i) => (
+                      {assets.map((asset) => (
                         <motion.tr
-                          key={i}
+                          key={asset.id}
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
                           className="hover:bg-white/5 transition-colors group"
@@ -152,17 +152,18 @@ export default function SellerDashboard() {
                               {asset.rarity}
                             </span>
                           </td>
-                          <td className="px-8 py-5 text-cyber-blue font-black">{asset.price}</td>
+                          <td className="px-8 py-5 text-cyber-blue font-black">${asset.price}</td>
                           <td className="px-8 py-5">
-                            <span className={cn("flex items-center gap-3 font-black uppercase text-[10px]", asset.color)}>
-                              <span className={cn("w-2 h-2 rounded-full animate-pulse", asset.color.replace('text-', 'bg-'))} />
+                            <span className={cn(
+                              "flex items-center gap-3 font-black uppercase text-[10px]",
+                              asset.status === 'published' ? 'text-cyber-green' : 'text-cyber-gold'
+                            )}>
                               {asset.status}
                             </span>
                           </td>
                           <td className="px-8 py-5 text-right">
                              <div className="flex justify-end gap-3">
                                 <button className="p-2 text-white/20 hover:text-cyber-blue transition-all hover:bg-white/5 rounded-sm"><Settings size={18} /></button>
-                                <button className="p-2 text-white/20 hover:text-cyber-pink transition-all hover:bg-white/5 rounded-sm"><AlertCircle size={18} /></button>
                              </div>
                           </td>
                         </motion.tr>
@@ -170,6 +171,7 @@ export default function SellerDashboard() {
                     </AnimatePresence>
                   </tbody>
                 </table>
+                )}
               </div>
             </GlassCard>
           </div>
@@ -238,15 +240,6 @@ export default function SellerDashboard() {
                           <option value="Legendary" className="bg-cyber-black">Legendary</option>
                         </select>
                       </div>
-                    </div>
-
-                    <div>
-                      <label className="block text-[11px] uppercase tracking-[0.3em] font-black text-white/40 mb-3 ml-1">Digital Package (ZIP/PDF)</label>
-                      <label className="flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-white/20 rounded-sm hover:border-cyber-blue hover:bg-white/5 cursor-pointer transition-all">
-                        <Plus className="text-white/30 mb-3" size={32} />
-                        <span className="text-xs text-white/40 font-black uppercase tracking-widest">Select Archive Node</span>
-                        <input type="file" className="hidden" />
-                      </label>
                     </div>
 
                     <NeonButton type="submit" variant="cyan" className="w-full py-5 text-sm font-black uppercase tracking-[0.2em] mt-4">
