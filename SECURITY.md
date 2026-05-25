@@ -31,7 +31,7 @@
 
 ## 🔑 Access Details
 - **Admin Panel URL:** `/admin/dashboard`
-- **Username:** [NONE IMPLEMENTED]
-- **Password:** [NONE IMPLEMENTED]
+- **Username:** `1`
+- **Password:** `1`
 
-**Note:** The system is currently in a "Proof of Concept" state with no active authentication layer.
+**Note:** The system includes a mock session-based authentication layer (Middleware + Cookies) and credential validation. While functional for a prototype, this should be replaced with Supabase Auth for production-grade security.

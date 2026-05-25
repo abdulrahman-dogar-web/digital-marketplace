@@ -5,15 +5,14 @@ import { motion } from 'framer-motion';
 
 export const BootSequence = ({ onComplete }: { onComplete: () => void }) => {
   const [logs, setLogs] = useState<string[]>([]);
-  const messages = [
-    "INITIALIZING NEURAL LINK...",
-    "ESTABLISHING SECURE PROTOCOLS...",
-    "LOADING CYBERNETIC ASSETS...",
-    "DECRYPTING MARKETPLACE CORE...",
-    "ACCESS GRANTED: WELCOME TO CYBERNEST.",
-  ];
-
   useEffect(() => {
+    const messages = [
+      "INITIALIZING NEURAL LINK...",
+      "ESTABLISHING SECURE PROTOCOLS...",
+      "LOADING CYBERNETIC ASSETS...",
+      "DECRYPTING MARKETPLACE CORE...",
+      "ACCESS GRANTED: WELCOME TO CYBERNEST.",
+    ];
     let current = 0;
     const interval = setInterval(() => {
       if (current < messages.length) {
@@ -25,7 +24,7 @@ export const BootSequence = ({ onComplete }: { onComplete: () => void }) => {
       }
     }, 600);
     return () => clearInterval(interval);
-  }, []);
+  }, [onComplete]);
 
   return (
     <div className="fixed inset-0 bg-cyber-black z-[200] flex flex-col items-center justify-center font-mono p-8">

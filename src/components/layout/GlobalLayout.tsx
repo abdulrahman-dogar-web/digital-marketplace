@@ -4,6 +4,7 @@ import { ReactNode, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { CyberNestAI } from '../ai/CyberNestAI';
 import { EasterEggSystem } from './EasterEggSystem';
+import { Navbar } from '../navigation/Navbar';
 
 interface Particle {
   id: number;
@@ -34,6 +35,7 @@ export const GlobalLayout = ({ children }: { children: ReactNode }) => {
 
   return (
     <div className="min-h-screen bg-cyber-black text-white relative">
+      <Navbar />
       {/* Background Elements */}
       <div className="fixed inset-0 cyber-grid opacity-20 pointer-events-none" />
       <div className="fixed inset-0 bg-gradient-to-b from-transparent via-cyber-black/50 to-cyber-black pointer-events-none" />

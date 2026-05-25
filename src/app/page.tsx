@@ -8,6 +8,7 @@ import { NeonButton } from '@/components/ui/NeonButton';
 import { GlassCard } from '@/components/ui/GlassCard';
 import { ProductCard } from '@/components/marketplace/ProductCard';
 import { BootSequence } from '@/components/layout/BootSequence';
+import { NexusActivityFeed } from '@/components/layout/NexusActivityFeed';
 import { Product } from '@/types';
 import { Terminal, ShoppingBag, Shield, Zap } from 'lucide-react';
 
@@ -15,39 +16,51 @@ const FEATURED_PRODUCTS: Product[] = [
   {
     id: '1',
     name: 'Neural Automation Suite',
+    slug: 'neural-automation-suite',
     description: 'A complete AI-driven automation framework for futuristic SaaS management.',
     price: 299,
-    category: 'Automation',
+    category: { id: '1', name: 'Automation', slug: 'automation' },
     rarity: 'Legendary',
+    rarity_score: 98,
     image_url: 'https://images.unsplash.com/photo-1620712943543-bcc4628c9759?auto=format&fit=crop&q=80&w=800',
+    image_urls: ['https://images.unsplash.com/photo-1620712943543-bcc4628c9759?auto=format&fit=crop&q=80&w=800'],
     seller_id: 'seller1',
     created_at: new Date().toISOString(),
     is_approved: true,
-  },
+    status: 'published'
+  } as unknown as any, // eslint-disable-line @typescript-eslint/no-explicit-any
   {
     id: '2',
     name: 'Cyber Nexus Prompt Pack',
+    slug: 'cyber-nexus-prompt-pack',
     description: '1000+ elite prompts for generative AI mastery and high-conversion outputs.',
     price: 49,
-    category: 'Prompts',
+    category: { id: '2', name: 'Prompts', slug: 'prompts' },
     rarity: 'Elite',
+    rarity_score: 85,
     image_url: 'https://images.unsplash.com/photo-1675271591211-126ad94e495d?auto=format&fit=crop&q=80&w=800',
+    image_urls: ['https://images.unsplash.com/photo-1675271591211-126ad94e495d?auto=format&fit=crop&q=80&w=800'],
     seller_id: 'seller2',
     created_at: new Date().toISOString(),
     is_approved: true,
-  },
+    status: 'published'
+  } as unknown as any, // eslint-disable-line @typescript-eslint/no-explicit-any
   {
     id: '3',
     name: 'Holographic UI Kit',
+    slug: 'holographic-ui-kit',
     description: 'Next-gen design system for futuristic web applications and immersive interfaces.',
     price: 89,
-    category: 'Design',
+    category: { id: '3', name: 'Design', slug: 'design' },
     rarity: 'Rare',
+    rarity_score: 65,
     image_url: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?auto=format&fit=crop&q=80&w=800',
+    image_urls: ['https://images.unsplash.com/photo-1633356122544-f134324a6cee?auto=format&fit=crop&q=80&w=800'],
     seller_id: 'seller3',
     created_at: new Date().toISOString(),
     is_approved: true,
-  }
+    status: 'published'
+  } as unknown as any // eslint-disable-line @typescript-eslint/no-explicit-any
 ];
 
 export default function Home() {
@@ -127,30 +140,7 @@ export default function Home() {
 
         {/* Live Activity Feed */}
         <section className="mb-32">
-          <GlassCard className="p-0 overflow-hidden border-cyber-blue/20">
-            <div className="p-6 border-b border-white/5 bg-cyber-blue/5 flex justify-between items-center">
-              <h2 className="text-xl font-bold uppercase tracking-widest flex items-center gap-2">
-                <span className="w-2 h-2 bg-cyber-green rounded-full animate-pulse" />
-                Live Nexus Activity
-              </h2>
-              <span className="text-[10px] text-white/40">SYNCING WITH GLOBAL NODES...</span>
-            </div>
-            <div className="p-6 space-y-4 max-h-[300px] overflow-y-auto scrollbar-hide">
-              {[...Array(5)].map((_, i) => (
-                <div key={i} className="flex items-center justify-between text-sm py-2 border-b border-white/5 last:border-0">
-                  <div className="flex items-center gap-4">
-                    <div className="w-8 h-8 rounded bg-cyber-blue/10 flex items-center justify-center text-cyber-blue">
-                      <Zap size={14} />
-                    </div>
-                    <span className="text-white/80">
-                      <span className="text-cyber-blue font-mono font-bold">User_9283</span> acquired <span className="text-rarity-elite font-bold">Cyber Nexus Prompt Pack</span>
-                    </span>
-                  </div>
-                  <span className="text-white/30 text-[10px] font-mono">{i + 2}m ago</span>
-                </div>
-              ))}
-            </div>
-          </GlassCard>
+          <NexusActivityFeed />
         </section>
       </div>
     </GlobalLayout>

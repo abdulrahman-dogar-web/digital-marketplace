@@ -8,11 +8,13 @@ interface GlassCardProps {
   children: ReactNode;
   className?: string;
   hoverGlow?: boolean;
+  onClick?: () => void;
 }
 
-export const GlassCard = ({ children, className, hoverGlow = true }: GlassCardProps) => {
+export const GlassCard = ({ children, className, hoverGlow = true, onClick }: GlassCardProps) => {
   return (
     <motion.div
+      onClick={onClick}
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       whileHover={hoverGlow ? {
@@ -22,6 +24,7 @@ export const GlassCard = ({ children, className, hoverGlow = true }: GlassCardPr
       transition={{ duration: 0.5 }}
       className={cn(
         'glass-panel p-6 rounded-lg border border-white/5 relative overflow-hidden group',
+        onClick && "cursor-pointer",
         className
       )}
     >

@@ -25,7 +25,7 @@ function LoginForm() {
     document.cookie = "cybernest_session=active; path=/; max-age=3600";
 
     // Simple password system as requested
-    if (username === 'admin' && password === 'admin') {
+    if (username === '1' && password === '1') {
       setUser({
         id: 'admin-1',
         username: 'Admin_Nexus',

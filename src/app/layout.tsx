@@ -13,8 +13,32 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "CyberNest | The Futuristic AI Marketplace",
-  description: "A cinematic AI-powered digital marketplace for the next generation of internet users.",
+  metadataBase: new URL('https://cybernest.io'),
+  title: "CyberNest | Neural AI Marketplace",
+  description: "Discover elite AI tools, legendary scripts, and neural systems for the next digital civilization.",
+  keywords: ["AI marketplace", "digital products", "cyberpunk SaaS", "AI tools", "neural systems", "CyberNest"],
+  authors: [{ name: "Nexus Council" }],
+  openGraph: {
+    title: "CyberNest | Neural AI Marketplace",
+    description: "The premier futuristic AI-powered marketplace.",
+    url: "https://cybernest.io",
+    siteName: "CyberNest",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "CyberNest | Neural AI Marketplace",
+    description: "Architecting the Digital Civilization.",
+    images: ["/og-image.jpg"],
+  },
 };
 
 export default function RootLayout({

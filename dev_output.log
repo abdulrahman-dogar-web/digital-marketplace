@@ -1,0 +1,27 @@
+
+> cybernest@0.1.0 dev
+> next dev
+
+   ▲ Next.js 15.1.4
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.0.2:3000
+
+ ✓ Starting...
+ ✓ Ready in 2.2s
+ ○ Compiling / ...
+ ✓ Compiled / in 20.7s (2645 modules)
+ GET / 200 in 24635ms
+ ○ Compiling /marketplace ...
+ ✓ Compiled /marketplace in 1865ms (2652 modules)
+ GET /marketplace 200 in 2597ms
+ GET / 200 in 36ms
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ○ Compiling /auth/login ...
+ ✓ Compiled /auth/login in 812ms (2649 modules)
+ GET /auth/login 200 in 1096ms
+ ○ Compiling /src/middleware ...
+ ✓ Compiled /src/middleware in 738ms (98 modules)
+ ○ Compiling /admin/dashboard ...
+ ✓ Compiled /admin/dashboard in 1031ms (2684 modules)
+ GET /admin/dashboard 200 in 1283ms
+ ✓ Compiled in 659ms (1330 modules)
