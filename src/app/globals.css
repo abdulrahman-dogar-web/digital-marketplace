@@ -1,0 +1,65 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cyber-black: #020205;
+  --color-cyber-gray: #0a0a0f;
+  --color-cyber-blue: #00f2ff;
+  --color-cyber-purple: #bc13fe;
+  --color-cyber-pink: #ff00ff;
+  --color-cyber-green: #39ff14;
+  --color-cyber-gold: #ffcc00;
+
+  --color-rarity-common: #9e9e9e;
+  --color-rarity-rare: #0070dd;
+  --color-rarity-elite: #a335ee;
+  --color-rarity-legendary: #ff8000;
+
+  --font-cyber: 'Inter', system-ui, sans-serif;
+
+  --animate-glitch: glitch 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes glitch {
+  0% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+  100% { transform: translate(0); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+:root {
+  --background: #020205;
+  --foreground: #ffffff;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-cyber);
+  overflow-x: hidden;
+}
+
+.glass-panel {
+  background: rgba(10, 10, 15, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 242, 255, 0.1);
+}
+
+.neo-glow {
+  box-shadow: 0 0 15px rgba(0, 242, 255, 0.3);
+}
+
+.cyber-grid {
+  background-image:
+    linear-gradient(rgba(0, 242, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 242, 255, 0.05) 1px, transparent 1px);
+  background-size: 50px 50px;
+}

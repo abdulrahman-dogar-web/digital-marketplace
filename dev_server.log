@@ -1,0 +1,20 @@
+
+> cybernest@0.1.0 dev
+> next dev
+
+▲ Next.js 16.2.6 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.0.2:3000
+✓ Ready in 527ms
+
+○ Compiling / ...
+ GET / 200 in 6.1s (next.js: 5.6s, application-code: 481ms)
+ GET / 200 in 109ms (next.js: 11ms, application-code: 98ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+ GET /marketplace 200 in 1485ms (next.js: 1288ms, application-code: 197ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+ GET /admin/dashboard 200 in 2.1s (next.js: 1928ms, application-code: 131ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+ GET /lore 200 in 1967ms (next.js: 1840ms, application-code: 127ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+✓ Compiled in 59ms
