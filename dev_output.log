@@ -42,3 +42,35 @@
  ✓ Compiled in 570ms (1338 modules)
  ✓ Compiled in 257ms (1338 modules)
  ✓ Compiled in 9.1s (1338 modules)
+ ✓ Compiled in 8.6s (2673 modules)
+ ✓ Compiled in 3.9s (2675 modules)
+ ✓ Compiled in 1162ms (1339 modules)
+ ✓ Compiled in 2.3s (2759 modules)
+ ✓ Compiled in 582ms (1339 modules)
+ ✓ Compiled in 552ms (1339 modules)
+ ✓ Compiled in 662ms (1339 modules)
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 2.5s (2665 modules)
+ GET / 404 in 2924ms
+ GET / 404 in 160ms
+ GET /_next/static/css/app/layout.css?v=1779720865908 404 in 143ms
+ GET /_next/static/media/22a5144ee8d83bca-s.p.woff2 404 in 278ms
+ GET /_next/static/media/f5271587012faf78-s.p.woff2 404 in 274ms
+ GET /_next/static/chunks/main-app.js?v=1779720865908 404 in 174ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 143ms
+ ○ Compiling /marketplace ...
+ ✓ Compiled /marketplace in 2s (1351 modules)
+ GET /marketplace 200 in 2860ms
+ GET /_next/static/css/app/layout.css?v=1779720871090 404 in 71ms
+ GET /_next/static/media/22a5144ee8d83bca-s.p.woff2 404 in 133ms
+ GET /_next/static/media/f5271587012faf78-s.p.woff2 404 in 132ms
+ GET /_next/static/chunks/main-app.js?v=1779720871090 404 in 80ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 80ms
+ GET /_next/static/chunks/app/marketplace/page.js 404 in 65ms
+ ○ Compiling /_error ...
+ ✓ Compiled /_error in 2.9s (2921 modules)
+ GET /admin 404 in 2ms
+ GET /seller/dashboard 404 in 2ms
+ ✓ Compiled in 16.1s (2917 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename '/app/.next/cache/webpack/client-development/12.pack.gz_' -> '/app/.next/cache/webpack/client-development/12.pack.gz'
+ ✓ Compiled in 620ms (1536 modules)

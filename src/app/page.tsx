@@ -96,9 +96,20 @@ export default function Home() {
               <Link href="/marketplace">
                 <NeonButton variant="cyan" className="px-10 py-4 text-sm">Explore Marketplace</NeonButton>
               </Link>
-              <Link href="/seller/dashboard">
-                <NeonButton variant="purple" glow={false} className="px-10 py-4 text-sm">Open Your Shop</NeonButton>
+              <Link href="/auth/signup">
+                <NeonButton variant="purple" className="px-10 py-4 text-sm">Initialize Node</NeonButton>
               </Link>
+            </div>
+
+            <div className="mt-12 flex flex-col items-center">
+              <p className="text-[10px] uppercase tracking-[0.4em] text-white/30 mb-4">Fast-Track Authentication</p>
+              <button
+                onClick={() => window.location.href = '/auth/login'}
+                className="flex items-center gap-3 px-6 py-3 glass-panel border border-white/10 rounded-full hover:bg-white/5 transition-all group"
+              >
+                <div className="w-2 h-2 bg-cyber-blue rounded-full animate-pulse" />
+                <span className="text-[10px] font-black uppercase tracking-widest text-white/60 group-hover:text-white">Secure Login with Google</span>
+              </button>
             </div>
           </motion.div>
 

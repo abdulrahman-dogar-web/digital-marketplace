@@ -1,0 +1,31 @@
+
+> cybernest@0.1.0 dev
+> next dev
+
+ ⚠ Port 3000 is in use, trying 3001 instead.
+   ▲ Next.js 15.1.4
+   - Local:        http://localhost:3001
+   - Network:      http://192.168.0.2:3001
+
+ ✓ Starting...
+ ✓ Ready in 2.1s
+ ○ Compiling / ...
+ ✓ Compiled / in 22.9s (2648 modules)
+ GET / 200 in 24361ms
+ ○ Compiling /marketplace ...
+ ✓ Compiled /marketplace in 1380ms (2668 modules)
+ GET / 200 in 543ms
+ GET /marketplace 200 in 1977ms
+ ✓ Compiled /src/middleware in 493ms (98 modules)
+ ○ Compiling /auth/login ...
+ ✓ Compiled /auth/login in 1139ms (2667 modules)
+ GET /auth/login?callbackUrl=%2Fadmin 200 in 1447ms
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ GET /auth/login?callbackUrl=%2Fseller%2Fdashboard 200 in 53ms
+ GET / 200 in 174ms
+ GET /marketplace 200 in 116ms
+ GET /auth/login?callbackUrl=%2Fadmin 200 in 55ms
+ GET /auth/login?callbackUrl=%2Fseller%2Fdashboard 200 in 70ms
+ GET /auth/login 200 in 75ms
+ ✓ Compiled in 8.2s (2681 modules)
+ ✓ Compiled in 566ms (1323 modules)

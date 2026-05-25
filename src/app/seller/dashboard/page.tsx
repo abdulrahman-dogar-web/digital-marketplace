@@ -26,7 +26,7 @@ const INITIAL_ASSETS = [
 export default function SellerDashboard() {
   const [assets, setAssets] = useState(INITIAL_ASSETS);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [newAsset, setNewAsset] = useState({ name: '', price: '', rarity: 'Common', category: 'Automation' });
+  const [newAsset, setNewAsset] = useState({ name: '', price: '', rarity: 'Common' });
 
   const handleAddAsset = (e: React.FormEvent) => {
     e.preventDefault();
@@ -41,7 +41,7 @@ export default function SellerDashboard() {
       }
     ]);
     setIsModalOpen(false);
-    setNewAsset({ name: '', price: '', rarity: 'Common', category: 'Automation' });
+    setNewAsset({ name: '', price: '', rarity: 'Common' });
   };
 
   return (
@@ -49,88 +49,88 @@ export default function SellerDashboard() {
       <div className="container mx-auto px-6 py-32">
         <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
           <div>
-            <div className="text-cyber-blue font-mono text-[10px] uppercase tracking-[0.4em] mb-2">Operator Portal</div>
-            <h1 className="text-5xl font-black uppercase tracking-tighter">Asset Management</h1>
+            <div className="text-cyber-blue font-mono text-[10px] uppercase tracking-[0.4em] mb-2 font-black">Operator Portal</div>
+            <h1 className="text-5xl font-black uppercase tracking-tighter text-white">Asset Management</h1>
           </div>
           <NeonButton
             onClick={() => setIsModalOpen(true)}
             variant="cyan"
-            className="px-6 py-3 flex items-center gap-2"
+            className="px-8 py-3 flex items-center gap-3 font-black uppercase text-[11px]"
           >
             <Plus size={18} />
             Initialize New Asset
           </NeonButton>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 mb-12">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-12 mb-12">
           {/* Operator Profile */}
-          <GlassCard className="lg:col-span-1 border-cyber-blue/20">
+          <GlassCard className="lg:col-span-1 border-cyber-blue/30 bg-white/5 p-8">
             <div className="text-center py-6">
-              <div className="w-24 h-24 rounded-full bg-cyber-blue/10 mx-auto mb-4 border border-cyber-blue/30 flex items-center justify-center overflow-hidden relative group">
-                <div className="text-4xl group-hover:opacity-20 transition-opacity">🤖</div>
-                <button className="absolute inset-0 opacity-0 group-hover:opacity-100 flex items-center justify-center bg-black/40 transition-opacity">
-                  <Upload size={20} className="text-cyber-blue" />
+              <div className="w-28 h-28 rounded-full bg-cyber-blue/10 mx-auto mb-6 border-2 border-cyber-blue flex items-center justify-center overflow-hidden relative group shadow-[0_0_30px_rgba(0,242,255,0.2)]">
+                <div className="text-5xl group-hover:opacity-20 transition-opacity">🤖</div>
+                <button className="absolute inset-0 opacity-0 group-hover:opacity-100 flex items-center justify-center bg-black/60 transition-opacity">
+                  <Upload size={24} className="text-cyber-blue" />
                 </button>
               </div>
-              <h3 className="text-xl font-bold">Operator_X</h3>
-              <p className="text-cyber-blue text-xs font-mono uppercase tracking-widest mt-1">Cyber Agent</p>
-              <div className="mt-6 space-y-2">
-                <div className="flex justify-between text-[10px] uppercase tracking-widest px-4">
-                  <span className="text-white/40">XP</span>
+              <h3 className="text-2xl font-black uppercase text-white tracking-tighter">Operator_X</h3>
+              <p className="text-cyber-blue text-[10px] font-black font-mono uppercase tracking-[0.3em] mt-2">Cyber Agent</p>
+              <div className="mt-8 space-y-3">
+                <div className="flex justify-between text-[10px] font-black uppercase tracking-widest px-2">
+                  <span className="text-white/40">Neural XP</span>
                   <span className="text-white/80">1,240 / 2,000</span>
                 </div>
-                <div className="mx-4 h-1 bg-white/5 rounded-full overflow-hidden">
+                <div className="h-2 bg-white/10 rounded-full overflow-hidden border border-white/5">
                   <motion.div
                     initial={{ width: 0 }}
                     animate={{ width: '62%' }}
-                    className="h-full bg-cyber-blue"
+                    className="h-full bg-cyber-blue shadow-[0_0_15px_#00f2ff]"
                   />
                 </div>
               </div>
             </div>
-            <div className="border-t border-white/5 mt-6 pt-6 space-y-1">
-              <button className="w-full text-left px-4 py-2 text-sm text-cyber-blue bg-cyber-blue/5 rounded border-l-2 border-cyber-blue">Overview</button>
-              <button className="w-full text-left px-4 py-2 text-sm text-white/40 hover:text-white/60 transition-colors">Earnings</button>
-              <button className="w-full text-left px-4 py-2 text-sm text-white/40 hover:text-white/60 transition-colors">Analytics</button>
-              <button className="w-full text-left px-4 py-2 text-sm text-white/40 hover:text-white/60 transition-colors">Security</button>
+            <div className="border-t border-white/10 mt-8 pt-8 space-y-2">
+              <button className="w-full text-left px-5 py-3 text-[11px] font-black uppercase tracking-widest text-cyber-blue bg-cyber-blue/10 rounded border-l-4 border-cyber-blue">Overview</button>
+              <button className="w-full text-left px-5 py-3 text-[11px] font-black uppercase tracking-widest text-white/40 hover:text-white hover:bg-white/5 transition-all">Earnings</button>
+              <button className="w-full text-left px-5 py-3 text-[11px] font-black uppercase tracking-widest text-white/40 hover:text-white hover:bg-white/5 transition-all">Analytics</button>
+              <button className="w-full text-left px-5 py-3 text-[11px] font-black uppercase tracking-widest text-white/40 hover:text-white hover:bg-white/5 transition-all">Security</button>
             </div>
           </GlassCard>
 
-          <div className="lg:col-span-3 space-y-8">
+          <div className="lg:col-span-3 space-y-10">
             {/* Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {[
                 { label: 'Total Sales', value: '42', icon: TrendingUp },
                 { label: 'Active Assets', value: assets.length.toString(), icon: Package },
                 { label: 'Unread Intel', value: '3', icon: MessageSquare },
               ].map((stat, i) => (
-                <GlassCard key={i} className="flex items-center gap-6">
-                  <div className="p-3 bg-white/5 rounded text-cyber-blue">
-                    <stat.icon size={24} />
+                <GlassCard key={i} className="flex items-center gap-8 p-8 bg-white/5 border-white/10">
+                  <div className="p-4 bg-white/5 rounded-lg text-cyber-blue">
+                    <stat.icon size={28} />
                   </div>
                   <div>
-                    <div className="text-[10px] uppercase tracking-widest text-white/40">{stat.label}</div>
-                    <div className="text-2xl font-mono font-bold">{stat.value}</div>
+                    <div className="text-[10px] font-black uppercase tracking-widest text-white/40 mb-1">{stat.label}</div>
+                    <div className="text-3xl font-mono font-bold text-white">{stat.value}</div>
                   </div>
                 </GlassCard>
               ))}
             </div>
 
             {/* Asset Table */}
-            <GlassCard className="p-0 overflow-hidden">
-              <div className="p-6 border-b border-white/5 flex justify-between items-center bg-white/5">
-                <h2 className="text-lg font-bold uppercase tracking-widest">Global Distribution Table</h2>
-                <span className="text-[10px] text-white/40">STORAGE_LINK: 1.2 GB / 5 GB</span>
+            <GlassCard className="p-0 overflow-hidden border-white/10">
+              <div className="p-6 border-b border-white/10 flex justify-between items-center bg-white/5">
+                <h2 className="text-lg font-black uppercase tracking-widest text-white">Global Distribution Table</h2>
+                <span className="text-[10px] font-mono text-white/40 uppercase font-black tracking-widest">STORAGE: 1.2 GB / 5 GB</span>
               </div>
               <div className="overflow-x-auto">
                 <table className="w-full text-left">
                   <thead>
-                    <tr className="text-[10px] uppercase tracking-widest text-white/40 border-b border-white/5">
-                      <th className="px-6 py-4 font-normal">Asset Name</th>
-                      <th className="px-6 py-4 font-normal">Rarity</th>
-                      <th className="px-6 py-4 font-normal">Price</th>
-                      <th className="px-6 py-4 font-normal">Status</th>
-                      <th className="px-6 py-4 font-normal text-right">Actions</th>
+                    <tr className="text-[11px] font-black uppercase tracking-widest text-white/40 border-b border-white/10 bg-white/5">
+                      <th className="px-8 py-5">Asset Name</th>
+                      <th className="px-8 py-5">Rarity</th>
+                      <th className="px-8 py-5">Price</th>
+                      <th className="px-8 py-5">Status</th>
+                      <th className="px-8 py-5 text-right">Actions</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-white/5 text-sm font-mono">
@@ -142,26 +142,28 @@ export default function SellerDashboard() {
                           animate={{ opacity: 1 }}
                           className="hover:bg-white/5 transition-colors group"
                         >
-                          <td className="px-6 py-4 font-bold text-white/80">{asset.name}</td>
-                          <td className="px-6 py-4">
+                          <td className="px-8 py-5 font-black text-white/90 uppercase tracking-tighter">{asset.name}</td>
+                          <td className="px-8 py-5">
                             <span className={cn(
-                              "text-[10px] font-bold px-2 py-0.5 rounded border border-white/10 uppercase",
+                              "text-[10px] font-black px-3 py-1 rounded border-2 uppercase",
                               asset.rarity === 'Legendary' ? 'text-rarity-legendary border-rarity-legendary/20' :
                               asset.rarity === 'Elite' ? 'text-rarity-elite border-rarity-elite/20' : 'text-rarity-common border-white/20'
                             )}>
                               {asset.rarity}
                             </span>
                           </td>
-                          <td className="px-6 py-4 text-cyber-blue">{asset.price}</td>
-                          <td className="px-6 py-4">
-                            <span className={cn("flex items-center gap-2", asset.color)}>
-                              <span className={cn("w-1.5 h-1.5 rounded-full animate-pulse", asset.color.replace('text-', 'bg-'))} />
+                          <td className="px-8 py-5 text-cyber-blue font-black">{asset.price}</td>
+                          <td className="px-8 py-5">
+                            <span className={cn("flex items-center gap-3 font-black uppercase text-[10px]", asset.color)}>
+                              <span className={cn("w-2 h-2 rounded-full animate-pulse", asset.color.replace('text-', 'bg-'))} />
                               {asset.status}
                             </span>
                           </td>
-                          <td className="px-6 py-4 text-right">
-                            <button className="text-white/20 hover:text-cyber-blue transition-colors px-2"><Settings size={14} /></button>
-                            <button className="text-white/20 hover:text-cyber-pink transition-colors px-2"><AlertCircle size={14} /></button>
+                          <td className="px-8 py-5 text-right">
+                             <div className="flex justify-end gap-3">
+                                <button className="p-2 text-white/20 hover:text-cyber-blue transition-all hover:bg-white/5 rounded-sm"><Settings size={18} /></button>
+                                <button className="p-2 text-white/20 hover:text-cyber-pink transition-all hover:bg-white/5 rounded-sm"><AlertCircle size={18} /></button>
+                             </div>
                           </td>
                         </motion.tr>
                       ))}
@@ -176,13 +178,13 @@ export default function SellerDashboard() {
         {/* Upload Modal */}
         <AnimatePresence>
           {isModalOpen && (
-            <div className="fixed inset-0 z-[200] flex items-center justify-center p-6">
+            <div className="fixed inset-0 z-[600] flex items-center justify-center p-6">
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 onClick={() => setIsModalOpen(false)}
-                className="absolute inset-0 bg-black/80 backdrop-blur-sm"
+                className="absolute inset-0 bg-black/90 backdrop-blur-md"
               />
               <motion.div
                 initial={{ opacity: 0, scale: 0.9, y: 20 }}
@@ -190,43 +192,45 @@ export default function SellerDashboard() {
                 exit={{ opacity: 0, scale: 0.9, y: 20 }}
                 className="relative w-full max-w-xl"
               >
-                <GlassCard className="p-8">
-                  <div className="flex justify-between items-center mb-8">
-                    <h2 className="text-2xl font-black uppercase tracking-tighter">Initialize New Asset</h2>
+                <GlassCard className="p-10 border-2 border-cyber-blue/30 shadow-2xl">
+                  <div className="flex justify-between items-center mb-10">
+                    <h2 className="text-3xl font-black uppercase tracking-tighter">Initialize New Asset</h2>
                     <button onClick={() => setIsModalOpen(false)} className="text-white/40 hover:text-white transition-colors">
-                      <X size={24} />
+                      <X size={28} />
                     </button>
                   </div>
 
-                  <form onSubmit={handleAddAsset} className="space-y-6">
+                  <form onSubmit={handleAddAsset} className="space-y-8">
                     <div>
-                      <label className="block text-[10px] uppercase tracking-[0.3em] text-white/40 mb-2">Asset Name</label>
+                      <label className="block text-[11px] uppercase tracking-[0.3em] font-black text-white/40 mb-3 ml-1">Asset Identity</label>
                       <input
                         type="text"
                         value={newAsset.name}
                         onChange={(e) => setNewAsset({...newAsset, name: e.target.value})}
-                        className="w-full bg-white/5 border border-white/10 rounded-sm px-4 py-3 text-sm focus:outline-none focus:border-cyber-blue/50"
+                        className="w-full bg-white/5 border-2 border-white/10 rounded-sm px-5 py-4 text-sm focus:outline-none focus:border-cyber-blue font-bold uppercase tracking-widest"
+                        placeholder="Neural Package Name"
                         required
                       />
                     </div>
 
-                    <div className="grid grid-cols-2 gap-6">
+                    <div className="grid grid-cols-2 gap-8">
                       <div>
-                        <label className="block text-[10px] uppercase tracking-[0.3em] text-white/40 mb-2">Price (USD)</label>
+                        <label className="block text-[11px] uppercase tracking-[0.3em] font-black text-white/40 mb-3 ml-1">Acquisition Cost (USD)</label>
                         <input
                           type="number"
                           value={newAsset.price}
                           onChange={(e) => setNewAsset({...newAsset, price: e.target.value})}
-                          className="w-full bg-white/5 border border-white/10 rounded-sm px-4 py-3 text-sm focus:outline-none focus:border-cyber-blue/50"
+                          className="w-full bg-white/5 border-2 border-white/10 rounded-sm px-5 py-4 text-sm focus:outline-none focus:border-cyber-blue font-mono font-black"
+                          placeholder="299"
                           required
                         />
                       </div>
                       <div>
-                        <label className="block text-[10px] uppercase tracking-[0.3em] text-white/40 mb-2">Neural Rarity</label>
+                        <label className="block text-[11px] uppercase tracking-[0.3em] font-black text-white/40 mb-3 ml-1">Neural Rarity</label>
                         <select
                           value={newAsset.rarity}
                           onChange={(e) => setNewAsset({...newAsset, rarity: e.target.value})}
-                          className="w-full bg-white/5 border border-white/10 rounded-sm px-4 py-3 text-sm focus:outline-none focus:border-cyber-blue/50 text-white"
+                          className="w-full bg-white/5 border-2 border-white/10 rounded-sm px-5 py-4 text-sm focus:outline-none focus:border-cyber-blue text-white font-black uppercase tracking-widest"
                         >
                           <option value="Common" className="bg-cyber-black">Common</option>
                           <option value="Rare" className="bg-cyber-black">Rare</option>
@@ -237,15 +241,15 @@ export default function SellerDashboard() {
                     </div>
 
                     <div>
-                      <label className="block text-[10px] uppercase tracking-[0.3em] text-white/40 mb-2">Asset File (ZIP/PDF)</label>
-                      <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-white/10 rounded-sm hover:border-cyber-blue/30 cursor-pointer transition-colors bg-white/5">
-                        <Plus className="text-white/20 mb-2" size={24} />
-                        <span className="text-xs text-white/40">Select digital package</span>
+                      <label className="block text-[11px] uppercase tracking-[0.3em] font-black text-white/40 mb-3 ml-1">Digital Package (ZIP/PDF)</label>
+                      <label className="flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-white/20 rounded-sm hover:border-cyber-blue hover:bg-white/5 cursor-pointer transition-all">
+                        <Plus className="text-white/30 mb-3" size={32} />
+                        <span className="text-xs text-white/40 font-black uppercase tracking-widest">Select Archive Node</span>
                         <input type="file" className="hidden" />
                       </label>
                     </div>
 
-                    <NeonButton type="submit" variant="cyan" className="w-full py-4 text-sm">
+                    <NeonButton type="submit" variant="cyan" className="w-full py-5 text-sm font-black uppercase tracking-[0.2em] mt-4">
                       Establish Neural Link
                     </NeonButton>
                   </form>
