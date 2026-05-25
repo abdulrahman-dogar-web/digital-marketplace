@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { CyberNestAI } from '../ai/CyberNestAI';
 import { EasterEggSystem } from './EasterEggSystem';
 import { Navbar } from '../navigation/Navbar';
+import { Footer } from '../navigation/Footer';
 
 interface Particle {
   id: number;
@@ -18,8 +19,6 @@ export const GlobalLayout = ({ children }: { children: ReactNode }) => {
   const [particles, setParticles] = useState<Particle[]>([]);
 
   useEffect(() => {
-    // Wrap in requestAnimationFrame to avoid synchronous setState lint warning in some environments
-    // or just let it be, but let's try to be cleaner.
     const frame = requestAnimationFrame(() => {
       const newParticles = [...Array(20)].map((_, i) => ({
         id: i,
@@ -34,8 +33,9 @@ export const GlobalLayout = ({ children }: { children: ReactNode }) => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-cyber-black text-white relative">
+    <div className="min-h-screen bg-cyber-black text-white relative flex flex-col">
       <Navbar />
+
       {/* Background Elements */}
       <div className="fixed inset-0 cyber-grid opacity-20 pointer-events-none" />
       <div className="fixed inset-0 bg-gradient-to-b from-transparent via-cyber-black/50 to-cyber-black pointer-events-none" />
@@ -63,10 +63,13 @@ export const GlobalLayout = ({ children }: { children: ReactNode }) => {
         ))}
       </div>
 
-      {/* Main Content */}
-      <main className="relative z-10">
+      {/* Main Content Area */}
+      <main className="relative z-10 flex-grow">
         {children}
       </main>
+
+      {/* Futuristic Footer */}
+      <Footer />
 
       {/* AI Assistant */}
       <CyberNestAI />
@@ -74,20 +77,20 @@ export const GlobalLayout = ({ children }: { children: ReactNode }) => {
       {/* Easter Egg System */}
       <EasterEggSystem />
 
-      {/* Footer / Status Bar */}
-      <footer className="fixed bottom-0 left-0 w-full p-4 glass-panel border-t border-white/5 z-50 flex justify-between items-center text-[10px] uppercase tracking-[0.2em] text-cyber-blue/60">
+      {/* Global Status Bar Overlay */}
+      <div className="fixed bottom-0 left-0 w-full p-2 bg-black/40 backdrop-blur-md border-t border-white/5 z-[450] flex justify-between items-center text-[8px] uppercase tracking-[0.2em] text-cyber-blue/40 px-6">
         <div className="flex items-center gap-4">
           <span className="flex items-center gap-1">
             <span className="w-1.5 h-1.5 bg-cyber-green rounded-full animate-pulse" />
-            System Online
+            LIVE_NEXUS_FEED
           </span>
-          <span>Nexus Protocol: v4.2.0</span>
+          <span>STABLE_VERSION: 4.2.0</span>
         </div>
-        <div className="flex gap-6">
-          <span>Encryption: AES-256</span>
-          <span>Latency: 12ms</span>
+        <div className="hidden sm:flex gap-6">
+          <span>SEC_ENCRYPT: ENABLED</span>
+          <span>NODE_LATENCY: 12ms</span>
         </div>
-      </footer>
+      </div>
     </div>
   );
 };

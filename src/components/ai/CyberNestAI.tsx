@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Canvas } from '@react-three/fiber';
 import { Sphere, MeshDistortMaterial } from '@react-three/drei';
-import { X, Send, Bot, Search, Sparkles, HelpCircle, ArrowRight } from 'lucide-react';
+import { X, Send, Bot, Search, Sparkles, HelpCircle, ArrowRight, MessageCircle } from 'lucide-react';
 import { useAIStore } from '@/store/useAIStore';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
@@ -104,7 +104,20 @@ export const CyberNestAI = () => {
   };
 
   return (
-    <div className="fixed bottom-20 right-8 z-[100]">
+    <div className="fixed bottom-20 right-8 z-[100] flex flex-col items-center gap-4">
+      {/* WhatsApp Chat Support Button (Always visible or floating) */}
+      <motion.a
+        href="https://wa.me/923001412943"
+        target="_blank"
+        rel="noopener noreferrer"
+        whileHover={{ scale: 1.1, x: -5 }}
+        className="group relative flex items-center gap-3 px-4 py-2 bg-cyber-green/10 border border-cyber-green/40 rounded-full backdrop-blur-md shadow-[0_0_20px_rgba(0,255,100,0.2)] hover:bg-cyber-green/20 transition-all mb-2"
+      >
+        <div className="absolute -inset-1 bg-cyber-green/20 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity" />
+        <span className="text-[10px] font-black uppercase tracking-widest text-cyber-green whitespace-nowrap">Direct Support</span>
+        <MessageCircle size={18} className="text-cyber-green" />
+      </motion.a>
+
       <AnimatePresence>
         {isOpen && (
           <motion.div

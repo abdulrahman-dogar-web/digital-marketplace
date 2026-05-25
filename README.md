@@ -48,56 +48,56 @@ CyberNest is a multi-role platform where users can:
 - **Advanced Filters:** In the Marketplace, recalibrate results by Category (Automation, SaaS, etc.) or Neural Rarity (Common to Legendary).
 - **Quick Preview:** Click the "Eye" icon on any product card for an instant neural scan without leaving the feed.
 
-### Gamification & Interaction
-- **Easter Eggs:** Type secret phrases (e.g., `god_mode`, `nexus_override`) anywhere on the site to trigger UI destabilization and earn bonus XP.
-- **XP Progression:** Every interaction increases your Neural XP, which determines your Rank (Initiate to Nexus Master).
+### Support
+- **Direct WhatsApp Support:** Reach the Nexus Council at `+923001412943` via the floating button above the AI assistant.
 
 ---
 
-## 🛠️ 4. Operator & Admin Management
+## 🔐 4. Manual Backend & Authentication Configuration
+
+To make the platform fully production-ready, the following manual steps are required in your **Supabase Dashboard**:
+
+### 1. Supabase Auth (Google Login)
+1.  Go to **Authentication > Providers** in Supabase.
+2.  Enable **Google**.
+3.  Enter your **Google Client ID** and **Client Secret** (obtain these from the Google Cloud Console).
+4.  Add your production URL to the "Redirect URIs" list.
+5.  In the code (`src/app/auth/login/page.tsx`), the "Google Login" button is ready to be hooked into `supabase.auth.signInWithOAuth({ provider: 'google' })`.
+
+### 2. Manual Payouts & Screenshot Storage
+1.  Go to **Storage** in Supabase.
+2.  Create two buckets: `screenshots` (public: true) and `assets` (public: false).
+3.  Sellers upload assets to the `assets` bucket.
+4.  Buyers upload payment proof to the `screenshots` bucket.
+5.  Admins verify the `screenshots` bucket links via the **Transaction Vault** in the Admin Dashboard.
+
+### 3. Real-time Status Sync
+1.  Enable **Realtime** on the `transactions` and `notifications` tables in the Supabase Database settings.
+2.  This allows the Admin Dashboard to "actively" show new payments without refreshing.
+
+---
+
+## 🛠️ 5. Operator & Admin Management
 
 ### Operator Portal (Seller Dashboard)
 - **URL:** `/seller/dashboard`
-- **Asset Initialization:** Use the "Initialize New Asset" modal to upload ZIP/PDF packages, set pricing, and define rarity.
-- **Analytics:** Monitor storage link health, total sales, and unread intel.
+- **Asset Initialization:** Use the "Initialize New Asset" modal to upload packages and set rarity.
 
 ### Neural Command Center (Admin Dashboard)
-- **URL:** `/admin/dashboard` (Protected via password)
+- **URL:** `/admin/dashboard`
 - **Default Auth:** Identity: `1` | Key: `1`
-- **Functions:**
-    - **Transaction Vault:** Approve or reject manual payment verifications (Bank, Easypaisa, Binance).
-    - **Neural Shield:** Ban malicious users or trigger system-wide lockdowns.
-    - **Live Logs:** Monitor security incidents and global node activity in real-time.
+- **Global Config:**
+    - Change **Platform Name** and **Logo** dynamically.
+    - Update the global **WhatsApp Support Number**.
+    - Adjust the **Nexus Protocol Fee** (Commission %) via a slider.
+    - Manage **Citizen Nodes** (Ban/Restore users).
 
 ---
 
-## 💳 5. Acquisition Protocol (Payment Flow)
+## 🏗️ 6. Customizing the Neural Core
 
-1.  **Selection:** Add neural assets to your cart.
-2.  **Verification:** Proceed to checkout and select your subspace payment method.
-3.  **Transmission Proof:** Upload a receipt screenshot and enter the unique Transaction ID.
-4.  **Escrow:** The Nexus Council (Admin) verifies the units.
-5.  **Transmission:** Once approved, the asset appears in your **Neural Acquisitions** dashboard for immediate download.
-
----
-
-## 🏗️ 6. Customizing the Neural Core (SaaS Config)
-
-### Monetization Models
-- **Commission Mode:** Edit the `Protocol Fee` in `src/app/cart/page.tsx` and the admin dashboard to set your percentage (default: 15%).
-- **Subscription Mode (Rent):** The platform architecture supports a "Monthly Rent" model for sellers. To activate, modify the `seller_applications` table in `schema.sql` to include a `subscription_tier`.
-
-### Branding & Aesthetic
-- **Color Palettes:** All neon glow variables are stored in `src/app/globals.css`. Modify `--cyber-blue`, `--cyber-purple`, and `--cyber-pink` to instantly rebrand the nexus.
-- **AI Personality:** Adjust the floating orb's behavioral logic in `src/components/ai/CyberNestAI.tsx` to change greeting protocols and recommendation weightedness.
-
----
-
-## 📜 7. The Digital Civilization (Public Hubs)
-- **About:** Understand the mission of the Nexus Council.
-- **Support Hub:** Access the Knowledge Base and initialize support chats.
-- **Encrypted Archives:** Read the history of the "Great Disconnect" and the origins of the marketplace.
-- **Legal Nodes:** Review the Nexus Protocol Terms and Neural Data Privacy policies.
+- **Branding:** All neon variables are in `src/app/globals.css`. Modify `--cyber-blue`, `--cyber-purple`, and `--cyber-pink`.
+- **Lore:** Edit `src/app/lore/page.tsx` to add more encrypted narrative logs.
 
 ---
 

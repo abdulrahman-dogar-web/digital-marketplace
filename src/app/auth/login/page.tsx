@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 import { GlobalLayout } from '@/components/layout/GlobalLayout';
 import { GlassCard } from '@/components/ui/GlassCard';
 import { NeonButton } from '@/components/ui/NeonButton';
-import { Shield, Lock, User } from 'lucide-react';
+import { Shield, Lock, User, Chrome } from 'lucide-react';
 import { useUserStore } from '@/store/useUserStore';
 
 function LoginForm() {
@@ -52,6 +52,12 @@ function LoginForm() {
     } else {
       setError('NEURAL_MATCH_FAILURE: Credentials not found in central database.');
     }
+  };
+
+  const handleGoogleLogin = () => {
+     // Mocking Google login trigger
+     alert("Redirecting to Google Auth node... (Requires Supabase Google Provider configuration)");
+     // In production: supabase.auth.signInWithOAuth({ provider: 'google' })
   };
 
   return (
@@ -115,6 +121,19 @@ function LoginForm() {
               Initialize Login
             </NeonButton>
           </form>
+
+          <div className="relative my-8">
+            <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-white/10" /></div>
+            <div className="relative flex justify-center text-[8px] uppercase tracking-widest"><span className="bg-cyber-black px-4 text-white/30">Or Connect via Google</span></div>
+          </div>
+
+          <button
+            onClick={handleGoogleLogin}
+            className="w-full py-4 glass-panel border border-white/10 rounded-sm flex items-center justify-center gap-3 hover:bg-white/5 transition-all text-sm font-bold uppercase tracking-widest text-white/80"
+          >
+            <Chrome size={18} className="text-cyber-blue" />
+            Supabase Google Auth
+          </button>
         </GlassCard>
 
         <div className="mt-8 text-center text-[10px] text-white/20 uppercase tracking-widest font-mono">
