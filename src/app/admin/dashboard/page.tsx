@@ -1,19 +1,37 @@
 "use client";
 
-import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { GlobalLayout } from '@/components/layout/GlobalLayout';
 import { GlassCard } from '@/components/ui/GlassCard';
 import { NeonButton } from '@/components/ui/NeonButton';
-import { BarChart3, Users, DollarSign, Package, CheckCircle, Clock, XCircle, Shield } from 'lucide-react';
+import { BarChart3, Users, DollarSign, Package, CheckCircle, Clock, XCircle, Shield, ExternalLink } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-const MOCK_TRANSACTIONS = [
-  { id: 'TX-9021', user: 'Neural_Drifter', product: 'AI Agent Script', amount: 29, status: 'pending', method: 'Easypaisa' },
-  { id: 'TX-9022', user: 'Cyber_Punk', product: 'Neural Automation Suite', amount: 299, status: 'approved', method: 'Bank Transfer' },
-  { id: 'TX-9023', user: 'Data_Ghost', product: 'Holographic UI Kit', amount: 89, status: 'rejected', method: 'Binance' },
+const INITIAL_TRANSACTIONS = [
+  { id: 'TX-9021', user: 'Neural_Drifter', product: 'AI Agent Script', amount: 29, status: 'pending', method: 'Easypaisa', date: '2025-02-12' },
+  { id: 'TX-9022', user: 'Cyber_Punk', product: 'Neural Automation Suite', amount: 299, status: 'approved', method: 'Bank Transfer', date: '2025-02-11' },
+  { id: 'TX-9023', user: 'Data_Ghost', product: 'Holographic UI Kit', amount: 89, status: 'rejected', method: 'Binance', date: '2025-02-10' },
 ];
 
 export default function AdminDashboard() {
+  const [transactions, setTransactions] = useState(INITIAL_TRANSACTIONS);
+  const [revenue, setRevenue] = useState(42920);
+
+  const handleStatusChange = (id: string, newStatus: string) => {
+    setTransactions(prev => prev.map(tx => {
+      if (tx.id === id) {
+        if (newStatus === 'approved' && tx.status !== 'approved') {
+          setRevenue(prevRev => prevRev + tx.amount);
+        }
+        return { ...tx, status: newStatus };
+      }
+      return tx;
+    }));
+  };
+
+  const pendingCount = transactions.filter(t => t.status === 'pending').length;
+
   return (
     <GlobalLayout>
       <div className="container mx-auto px-6 py-32">
@@ -31,10 +49,10 @@ export default function AdminDashboard() {
         {/* Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
           {[
-            { label: 'Total Revenue', value: '$42,920', icon: DollarSign, color: 'text-cyber-green' },
-            { label: 'Active Sellers', value: '1,204', icon: Users, color: 'text-cyber-blue' },
-            { label: 'Total Products', value: '8,492', icon: Package, color: 'text-cyber-purple' },
-            { label: 'Conversion Rate', value: '12.4%', icon: BarChart3, color: 'text-cyber-pink' },
+            { label: 'Total Revenue', value: `$${revenue.toLocaleString()}`, icon: DollarSign, color: 'text-cyber-green', progress: '85%' },
+            { label: 'Active Sellers', value: '1,204', icon: Users, color: 'text-cyber-blue', progress: '42%' },
+            { label: 'Total Products', value: '8,492', icon: Package, color: 'text-cyber-purple', progress: '68%' },
+            { label: 'Conversion Rate', value: '12.4%', icon: BarChart3, color: 'text-cyber-pink', progress: '24%' },
           ].map((stat, i) => (
             <GlassCard key={i} className="border-white/10">
               <div className="flex justify-between items-start">
@@ -47,7 +65,7 @@ export default function AdminDashboard() {
               <div className="mt-4 h-1 bg-white/5 rounded-full overflow-hidden">
                 <motion.div
                   initial={{ width: 0 }}
-                  animate={{ width: '70%' }}
+                  animate={{ width: stat.progress }}
                   className={cn("h-full", stat.color.replace('text-', 'bg-'))}
                 />
               </div>
@@ -58,34 +76,73 @@ export default function AdminDashboard() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Pending Approvals */}
           <div className="lg:col-span-2 space-y-6">
-            <h2 className="text-xl font-bold uppercase tracking-widest flex items-center gap-2">
-              <Clock className="text-cyber-gold" size={20} />
-              Pending Transactions
-            </h2>
+            <div className="flex justify-between items-center">
+              <h2 className="text-xl font-bold uppercase tracking-widest flex items-center gap-2">
+                <Clock className="text-cyber-gold" size={20} />
+                Transaction Vault
+              </h2>
+              <span className="text-[10px] font-mono text-white/40 uppercase tracking-widest">{pendingCount} Action Required</span>
+            </div>
+
             <div className="space-y-4">
-              {MOCK_TRANSACTIONS.map((tx) => (
-                <GlassCard key={tx.id} className="p-4 border-white/5 flex items-center justify-between">
-                  <div className="flex items-center gap-6">
-                    <div className="w-12 h-12 bg-white/5 rounded flex items-center justify-center text-white/40 font-mono text-xs">
-                      IMG
-                    </div>
-                    <div>
-                      <div className="font-bold text-white/90">{tx.user} <span className="text-white/30 font-normal">bought</span> {tx.product}</div>
-                      <div className="text-[10px] font-mono text-white/40 uppercase mt-1">
-                        ID: {tx.id} • {tx.method} • <span className="text-cyber-blue">${tx.amount}</span>
+              <AnimatePresence>
+                {transactions.map((tx) => (
+                  <motion.div
+                    key={tx.id}
+                    layout
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                  >
+                    <GlassCard className={cn(
+                      "p-4 border-white/5 flex items-center justify-between transition-colors",
+                      tx.status === 'approved' ? 'border-cyber-green/20 bg-cyber-green/5' :
+                      tx.status === 'rejected' ? 'border-cyber-pink/20 bg-cyber-pink/5' : ''
+                    )}>
+                      <div className="flex items-center gap-6">
+                        <div className="w-12 h-12 bg-white/5 rounded flex flex-col items-center justify-center border border-white/10 cursor-pointer hover:bg-white/10 transition-colors group">
+                          <ExternalLink size={14} className="text-white/20 group-hover:text-cyber-blue" />
+                          <span className="text-[8px] font-mono mt-1 text-white/40">PROOF</span>
+                        </div>
+                        <div>
+                          <div className="font-bold text-white/90">
+                            {tx.user} <span className="text-white/30 font-normal">acquired</span> {tx.product}
+                          </div>
+                          <div className="text-[10px] font-mono text-white/40 uppercase mt-1">
+                            ID: {tx.id} • {tx.method} • <span className="text-cyber-blue">${tx.amount}</span> • {tx.date}
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                  <div className="flex gap-2">
-                    <button className="p-2 bg-cyber-green/10 text-cyber-green rounded hover:bg-cyber-green/20 transition-colors">
-                      <CheckCircle size={18} />
-                    </button>
-                    <button className="p-2 bg-cyber-pink/10 text-cyber-pink rounded hover:bg-cyber-pink/20 transition-colors">
-                      <XCircle size={18} />
-                    </button>
-                  </div>
-                </GlassCard>
-              ))}
+
+                      <div className="flex gap-2">
+                        {tx.status === 'pending' ? (
+                          <>
+                            <button
+                              onClick={() => handleStatusChange(tx.id, 'approved')}
+                              className="p-2 bg-cyber-green/10 text-cyber-green rounded hover:bg-cyber-green/20 transition-colors border border-cyber-green/20"
+                            >
+                              <CheckCircle size={18} />
+                            </button>
+                            <button
+                              onClick={() => handleStatusChange(tx.id, 'rejected')}
+                              className="p-2 bg-cyber-pink/10 text-cyber-pink rounded hover:bg-cyber-pink/20 transition-colors border border-cyber-pink/20"
+                            >
+                              <XCircle size={18} />
+                            </button>
+                          </>
+                        ) : (
+                          <div className={cn(
+                            "px-3 py-1 rounded text-[10px] font-bold uppercase border",
+                            tx.status === 'approved' ? 'text-cyber-green border-cyber-green/20' : 'text-cyber-pink border-cyber-pink/20'
+                          )}>
+                            {tx.status}
+                          </div>
+                        )}
+                      </div>
+                    </GlassCard>
+                  </motion.div>
+                ))}
+              </AnimatePresence>
             </div>
           </div>
 
@@ -107,6 +164,15 @@ export default function AdminDashboard() {
                   <span className={cn("font-bold font-mono", sys.color)}>{sys.status}</span>
                 </div>
               ))}
+
+              <div className="pt-4">
+                <div className="text-[10px] uppercase tracking-widest text-white/40 mb-4">Security Logs</div>
+                <div className="space-y-2 font-mono text-[9px] text-white/30">
+                  <div className="flex justify-between"><span>[14:22:01] LOGIN_SUCCESS: Admin_Nexus</span><span className="text-cyber-green">OK</span></div>
+                  <div className="flex justify-between"><span>[14:18:45] TX_INITIALIZED: TX-9024</span><span className="text-cyber-blue">WAIT</span></div>
+                  <div className="flex justify-between"><span>[13:55:12] DDOS_MITIGATED: 192.168.1.1</span><span className="text-cyber-pink">BLOCK</span></div>
+                </div>
+              </div>
             </GlassCard>
           </div>
         </div>

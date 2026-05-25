@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { Product } from '@/types';
 import { GlassCard } from '../ui/GlassCard';
@@ -32,12 +33,16 @@ export const ProductCard = ({ product }: { product: Product }) => {
         </div>
       </div>
 
-      <h3 className="text-xl font-bold mb-1 group-hover:text-cyber-blue transition-colors">{product.name}</h3>
+      <Link href={`/marketplace/product/${product.id}`}>
+        <h3 className="text-xl font-bold mb-1 group-hover:text-cyber-blue transition-colors cursor-pointer">{product.name}</h3>
+      </Link>
       <p className="text-white/60 text-sm mb-4 line-clamp-2">{product.description}</p>
 
       <div className="mt-auto flex justify-between items-center">
         <span className="text-2xl font-mono text-cyber-blue">${product.price}</span>
-        <NeonButton variant="cyan" className="px-4 py-1.5 text-xs">Initialize</NeonButton>
+        <Link href={`/marketplace/checkout?productId=${product.id}`}>
+          <NeonButton variant="cyan" className="px-4 py-1.5 text-xs">Initialize</NeonButton>
+        </Link>
       </div>
     </GlassCard>
   );

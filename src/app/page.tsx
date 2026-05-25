@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 import { GlobalLayout } from '@/components/layout/GlobalLayout';
 import { NeonButton } from '@/components/ui/NeonButton';
 import { GlassCard } from '@/components/ui/GlassCard';
@@ -79,8 +80,12 @@ export default function Home() {
               CyberNest is the premier futuristic AI marketplace. Explore elite tools, legendary scripts, and neural systems designed for the next generation of digital civilization.
             </p>
             <div className="flex flex-wrap justify-center gap-6">
-              <NeonButton variant="cyan" className="px-10 py-4 text-sm">Explore Marketplace</NeonButton>
-              <NeonButton variant="purple" glow={false} className="px-10 py-4 text-sm">Open Your Shop</NeonButton>
+              <Link href="/marketplace">
+                <NeonButton variant="cyan" className="px-10 py-4 text-sm">Explore Marketplace</NeonButton>
+              </Link>
+              <Link href="/seller/dashboard">
+                <NeonButton variant="purple" glow={false} className="px-10 py-4 text-sm">Open Your Shop</NeonButton>
+              </Link>
             </div>
           </motion.div>
 
@@ -108,7 +113,9 @@ export default function Home() {
               <h2 className="text-4xl font-bold mb-2 uppercase tracking-tighter">Legendary Drops</h2>
               <p className="text-white/40 text-sm">Curated neural assets currently trending in the nexus.</p>
             </div>
-            <NeonButton variant="cyan" className="px-6 py-2 text-[10px]">View All Assets</NeonButton>
+            <Link href="/marketplace">
+              <NeonButton variant="cyan" className="px-6 py-2 text-[10px]">View All Assets</NeonButton>
+            </Link>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
