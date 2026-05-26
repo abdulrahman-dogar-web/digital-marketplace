@@ -1,68 +1,49 @@
-# CyberNest | Production-Ready AI Marketplace
+# CyberNest | Live Digital Civilization
 
-CyberNest is a cinematic, full-stack AI-powered digital marketplace. This version has been upgraded to a production-ready SaaS architecture using Next.js 15, Prisma ORM, and PostgreSQL.
-
-## 🚀 Key Features
-- **Cinematic UI:** Immersive cyberpunk aesthetic with Framer Motion and Glassmorphism.
-- **Full-Stack API:** Real-time synchronization via Next.js App Router API.
-- **Database:** Prisma ORM for type-safe database operations.
-- **Role-Based Access:** Integrated logic for Users, Sellers, and Admin Command Center.
-- **Automated Workflows:** Real transaction approval, asset initialization, and egg generation.
+CyberNest is a cinematic, full-stack AI-powered marketplace. Follow this **3-Step Fast Track** to go from zero to a live, populated digital ecosystem.
 
 ---
 
-## 🛠 Tech Stack
-- **Framework:** Next.js 15 (App Router)
-- **Database:** PostgreSQL (Vercel Postgres / Supabase)
-- **ORM:** Prisma
-- **State Management:** Zustand
-- **Styling:** Tailwind CSS + Framer Motion
-- **Icons:** Lucide React
+## ⚡ 3-Step Fast Track (Vercel + Supabase)
 
----
-
-## 🔑 Installation & Deployment
-
-To deploy this platform on **Vercel**, follow these steps:
-
-### 1. Environmental Configuration
-Create a `.env` file in the root:
+### 1. Configure Environmental Nodes
+Create a `.env` file in your root and insert your database credentials:
 ```env
-DATABASE_URL="your-postgresql-connection-string"
-NEXT_PUBLIC_SUPABASE_URL="your-supabase-url"
-NEXT_PUBLIC_SUPABASE_ANON_KEY="your-supabase-anon-key"
+# Get this from Supabase > Project Settings > Database > Connection String
+DATABASE_URL="postgresql://postgres.xxx:password@aws-0-us-east-1.pooler.supabase.com:6543/postgres?pgbouncer=true"
+
+# Get these from Supabase > Project Settings > API
+NEXT_PUBLIC_SUPABASE_URL="https://xxx.supabase.co"
+NEXT_PUBLIC_SUPABASE_ANON_KEY="eyJhbGciOi..."
 ```
 
-### 2. Initialization
-Run the following commands:
+### 2. Initialize the Nexus
+Run the automated command to install dependencies, sync your database schema, and seed the marketplace with cinematic assets:
 ```bash
-npm install
-npx prisma generate
-npx prisma db push
+npm run nexus-init
 ```
 
-### 3. Build & Launch
-```bash
-npm run build
-npm start
-```
+### 3. Deploy to Vercel
+Push your code to GitHub and connect it to Vercel.
+- **Important:** Add the same `.env` variables to Vercel's *Environment Variables* section.
+- **Build Command:** `npm run build`
+- **Install Command:** `npm install`
+
+**Your marketplace is now LIVE and populated.**
 
 ---
 
-## 📡 API Endpoints
-- `GET /api/users`: Fetch all citizen nodes.
-- `POST /api/users`: Create new citizen.
-- `DELETE /api/users?id=...`: Decommission node.
-- `GET /api/products`: Fetch neural assets.
-- `POST /api/products`: Initialize new asset.
-- `PATCH /api/transactions`: Update exchange status (Approve/Reject).
-- `POST /api/eggs`: Generate new reward egg.
+## 📡 Ecosystem Overview
 
----
+- **Marketplace Archive:** Explore and acquire neural assets.
+- **Admin Console:** Manage citizens, approve transactions, and generate rewards.
+- **Seller Portal:** Initialize and distribute your own cinematic tools.
+- **AI Assistant:** Contextual guidance and lore discovery.
 
-## 🎮 Gamification & Easter Eggs
-- **Ranks:** Explorer → Operator → Cyber Agent → Neural Elite → Nexus Master.
-- **Admin Access:** Direct management of users and assets via the Admin Console.
+### 📡 Automated API
+- `GET /api/users`: Neural node registry.
+- `GET /api/products`: Asset distribution feed.
+- `PATCH /api/transactions`: Exchange authorization.
 
 ---
 *Architecting the Digital Civilization.*
