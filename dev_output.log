@@ -134,3 +134,8 @@ Killed
 <w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: too many length or distance symbols
  ✓ Compiled in 2.1s (1530 modules)
 <w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: too many length or distance symbols
+ ✓ Compiled in 22.2s (1530 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: too many length or distance symbols
+ ✓ Compiled in 1760ms (1530 modules)
+ ✓ Compiled in 544ms (1530 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: too many length or distance symbols
