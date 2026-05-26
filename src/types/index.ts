@@ -64,15 +64,21 @@ export interface ProductFAQ {
 
 export interface Transaction {
   id: string;
-  user_id: string;
-  product_id: string;
+  user_id?: string;
+  userId?: string;
+  product_id?: string;
+  productId?: string;
   product?: Partial<Product>;
   amount: number;
-  payment_method: 'bank' | 'easypaisa' | 'jazzcash' | 'binance' | 'stripe' | 'crypto';
+  payment_method?: string;
+  method?: string;
   transaction_id?: string;
+  txId?: string;
   screenshot_url?: string;
-  status: 'pending' | 'verifying' | 'approved' | 'rejected' | 'refunded';
-  created_at: string;
+  screenshot?: string;
+  status: string;
+  created_at?: string;
+  date?: string;
 }
 
 export interface Review {

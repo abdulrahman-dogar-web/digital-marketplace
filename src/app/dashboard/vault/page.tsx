@@ -106,7 +106,9 @@ export default function UserVault() {
                                  <div className="flex justify-between items-start mb-4">
                                     <div>
                                        <h3 className="text-xl font-black uppercase tracking-tighter text-white mb-1">{tx.product?.name}</h3>
-                                       <div className="text-[10px] text-white/30 font-mono uppercase tracking-widest">{tx.product?.id?.slice(0, 8)} | {new Date(tx.created_at).toLocaleDateString()}</div>
+                                       <div className="text-[10px] text-white/30 font-mono uppercase tracking-widest">
+                                         {tx.product?.id?.slice(0, 8)} | {tx.created_at || tx.date ? new Date((tx.created_at || tx.date) as string).toLocaleDateString() : 'SYNC_PENDING'}
+                                       </div>
                                     </div>
                                     <span className={cn(
                                        "px-3 py-1 text-[10px] font-black uppercase rounded border",

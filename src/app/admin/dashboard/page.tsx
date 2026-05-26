@@ -206,9 +206,9 @@ export default function AdminDashboard() {
                   <tbody className="divide-y divide-white/5 font-mono text-sm">
                     {transactions.map((tx) => (
                       <tr key={tx.id} className="hover:bg-white/5 transition-colors">
-                        <td className="px-8 py-5 font-black text-white">{tx.transaction_id || tx.id.slice(0,8)}</td>
+                        <td className="px-8 py-5 font-black text-white">{tx.txId || tx.transaction_id || tx.id.slice(0,8)}</td>
                         <td className="px-8 py-5 text-cyber-blue font-black">${tx.amount}</td>
-                        <td className="px-8 py-5 text-[10px] uppercase">{tx.payment_method}</td>
+                        <td className="px-8 py-5 text-[10px] uppercase">{tx.method || tx.payment_method}</td>
                         <td className="px-8 py-5">
                            <span className={cn(
                              "text-[10px] font-black px-2 py-1 rounded",
@@ -250,7 +250,9 @@ export default function AdminDashboard() {
                         {eggs.map((egg) => (
                           <tr key={egg.id}>
                             <td className="px-8 py-5 text-cyber-blue font-black">{egg.code}</td>
-                            <td className="px-8 py-5 uppercase text-xs">REWARD_STUB</td>
+                            <td className="px-8 py-5 uppercase text-xs">
+                              {typeof egg.reward_value === 'string' ? egg.reward_value : 'DATA_NODE'}
+                            </td>
                             <td className="px-8 py-5">
                                <span className={cn("text-[10px] px-2 py-1 rounded", !egg.is_active ? 'bg-white/10 text-white/40' : 'bg-cyber-green/20 text-cyber-green font-black')}>
                                  {!egg.is_active ? 'DECRYPTED' : 'ACTIVE'}
