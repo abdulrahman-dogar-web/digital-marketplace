@@ -11,6 +11,7 @@ import { BootSequence } from '@/components/layout/BootSequence';
 import { NexusActivityFeed } from '@/components/layout/NexusActivityFeed';
 import { Product } from '@/types';
 import { Terminal, ShoppingBag, Shield, Zap, Loader2 } from 'lucide-react';
+import { supabase } from '@/lib/supabase';
 
 export default function Home() {
   const [booted, setBooted] = useState(false);
@@ -21,9 +22,15 @@ export default function Home() {
     if (booted) {
       const fetchFeatured = async () => {
         try {
-          const res = await fetch('/api/products');
-          const data = await res.json();
-          setFeaturedProducts(data.slice(0, 3));
+          const { data, error } = await supabase
+            .from('products')
+            .select('*')
+            .eq('status', 'published')
+            .eq('is_approved', true)
+            .limit(3);
+
+          if (error) throw error;
+          setFeaturedProducts(data as Product[]);
         } catch (err) {
           console.error(err);
         } finally {

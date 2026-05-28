@@ -1,56 +1,46 @@
 # 💠 CyberNest: Digital Civilization
 ### *The Next-Generation AI-Powered Neural Marketplace*
 
-CyberNest is not a platform; it is a cinematic digital ecosystem built for the exchange of elite AI tools, automation frameworks, and neural assets.
+CyberNest is a cinematic digital ecosystem built for the exchange of elite AI tools, automation frameworks, and neural assets.
 
 ---
 
 ## ⚡ Live Deployment Protocol (Fast Track)
 
-To initialize the CyberNest ecosystem on **Vercel** and **Supabase**, follow these three steps.
+To initialize the CyberNest ecosystem, follow these three simple steps.
 
 ### 1. Establish Environmental Links
-Create a `.env` file in the root directory.
-
-**CRITICAL:** Supabase requires two connection strings to prevent the terminal from hanging during setup.
+Create a `.env` file in the root directory. Get these from your **Supabase Dashboard > Settings > API**.
 
 ```env
-# 1. TRANSACTION POOLER (Mode: Transaction, Port: 6543)
-# Used for the running application
-DATABASE_URL="postgresql://postgres.xxx:password@aws-0-us-east-1.pooler.supabase.com:6543/postgres?pgbouncer=true"
-
-# 2. DIRECT CONNECTION (Mode: Session, Port: 5432)
-# Used for 'prisma db push' to initialize the database
-DIRECT_URL="postgresql://postgres.xxx:password@aws-0-us-east-1.pooler.supabase.com:5432/postgres"
-
-# 3. NEURAL API (Supabase > Settings > API)
-NEXT_PUBLIC_SUPABASE_URL="https://xxx.supabase.co"
-NEXT_PUBLIC_SUPABASE_ANON_KEY="eyJhbGciOi..."
+NEXT_PUBLIC_SUPABASE_URL="https://your-project-id.supabase.co"
+NEXT_PUBLIC_SUPABASE_ANON_KEY="your-anon-key"
 ```
 
-### 2. Initialize Neural Synchronization
-Execute the automated sequence to install dependencies, synchronize the database schema, and seed the marketplace:
+### 2. Neural Initialization (Auto-Backend)
+Establish the database infrastructure in 30 seconds:
+1. Go to your **Supabase Dashboard**.
+2. Open the **SQL Editor** in the left sidebar.
+3. Click **New Query**.
+4. Copy the entire content of `supabase/init.sql` from this repository.
+5. Paste it into the editor and click **Run**.
 
-```bash
-npm run nexus-init
-```
-
-*Note: If the terminal hangs at "Datasource db", ensure your `DIRECT_URL` is using port 5432 and Session mode.*
+*Your users, products, and categories are now live.*
 
 ### 3. Deploy to Global Nexus (Vercel)
 Connect your repository to Vercel:
-- **Environment Variables:** Mirror all 4 variables from Step 1.
-- **Build Configuration:**
-  - Build: `npm run build`
-  - Install: `npm install`
+- **Environment Variables:** Add the 2 variables from Step 1.
+- **Build Command:** `npm run build`
+- **Output Directory:** `.next`
 
 ---
 
 ## 🛰️ Ecosystem Modules
-- **🏛️ Neural Command Center:** Manage citizens and authorize exchanges.
-- **🏪 Marketplace Archive:** Cinematic discovery of digital assets.
-- **🛠️ Operator Portal:** Real-time asset initialization for sellers.
-- **🤖 AI Assistant:** Contextual guidance and lore discovery.
+- **🏛️ Neural Command Center (`/admin/dashboard`):** Manage citizens and authorize exchanges.
+- **🏪 Marketplace Archive (`/marketplace`):** Cinematic discovery of digital assets.
+- **🛠️ Operator Portal (`/seller/dashboard`):** Real-time asset initialization for sellers.
+- **🗄️ Neural Vault (`/dashboard/vault`):** Secure storage for acquired assets.
+- **🤖 CyberNest AI:** Floating holographic assistant for guidance.
 
 ---
 *Architecting the Digital Civilization.*

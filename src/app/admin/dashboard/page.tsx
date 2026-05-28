@@ -20,6 +20,7 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { User, Product, Transaction, EasterEgg } from '@/types';
+import { supabase } from '@/lib/supabase';
 
 type TabType = 'overview' | 'citizens' | 'assets' | 'transactions' | 'eggs' | 'config';
 
@@ -37,15 +38,16 @@ export default function AdminDashboard() {
     setLoading(true);
     try {
       const [u, p, t, e] = await Promise.all([
-        fetch('/api/users').then(res => res.json()),
-        fetch('/api/products').then(res => res.json()),
-        fetch('/api/transactions').then(res => res.json()),
-        fetch('/api/eggs').then(res => res.json())
+        supabase.from('users').select('*'),
+        supabase.from('products').select('*'),
+        supabase.from('transactions').select('*'),
+        supabase.from('easter_eggs').select('*')
       ]);
-      setUsers(u);
-      setProducts(p);
-      setTransactions(t);
-      setEggs(e);
+
+      if (u.data) setUsers(u.data as User[]);
+      if (p.data) setProducts(p.data as Product[]);
+      if (t.data) setTransactions(t.data as Transaction[]);
+      if (e.data) setEggs(e.data as EasterEgg[]);
     } catch (err) {
       console.error('Data acquisition failure', err);
     } finally {
@@ -57,10 +59,13 @@ export default function AdminDashboard() {
 
   const handleUpdateStatus = async (type: string, id: string, status: string) => {
     try {
-      await fetch(`/api/${type}`, {
-        method: 'PATCH',
-        body: JSON.stringify({ id, status })
-      });
+      const table = type === 'transactions' ? 'transactions' : 'products';
+      const { error } = await supabase
+        .from(table)
+        .update({ status })
+        .eq('id', id);
+
+      if (error) throw error;
       fetchData();
     } catch (err) {
       console.error('Status update failure', err);
@@ -70,7 +75,12 @@ export default function AdminDashboard() {
   const handleDeleteUser = async (id: string) => {
     if (!confirm('Permanent deletion of citizen node?')) return;
     try {
-      await fetch(`/api/users?id=${id}`, { method: 'DELETE' });
+      const { error } = await supabase
+        .from('users')
+        .delete()
+        .eq('id', id);
+
+      if (error) throw error;
       fetchData();
     } catch (err) {
       console.error('Node deletion failure', err);
@@ -80,10 +90,16 @@ export default function AdminDashboard() {
   const handleCreateEgg = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await fetch('/api/eggs', {
-        method: 'POST',
-        body: JSON.stringify(newEgg)
-      });
+      const { error } = await supabase
+        .from('easter_eggs')
+        .insert([{
+          code: newEgg.code,
+          reward_value: newEgg.reward,
+          rarity: newEgg.rarity,
+          is_active: true
+        }]);
+
+      if (error) throw error;
       setIsEggModalOpen(false);
       setNewEgg({ code: '', reward: '', rarity: 'Common' });
       fetchData();
@@ -206,9 +222,9 @@ export default function AdminDashboard() {
                   <tbody className="divide-y divide-white/5 font-mono text-sm">
                     {transactions.map((tx) => (
                       <tr key={tx.id} className="hover:bg-white/5 transition-colors">
-                        <td className="px-8 py-5 font-black text-white">{tx.txId || tx.transaction_id || tx.id.slice(0,8)}</td>
+                        <td className="px-8 py-5 font-black text-white">{tx.transaction_id || tx.txId || tx.id.slice(0,8)}</td>
                         <td className="px-8 py-5 text-cyber-blue font-black">${tx.amount}</td>
-                        <td className="px-8 py-5 text-[10px] uppercase">{tx.method || tx.payment_method}</td>
+                        <td className="px-8 py-5 text-[10px] uppercase">{tx.payment_method || tx.method}</td>
                         <td className="px-8 py-5">
                            <span className={cn(
                              "text-[10px] font-black px-2 py-1 rounded",
@@ -251,7 +267,7 @@ export default function AdminDashboard() {
                           <tr key={egg.id}>
                             <td className="px-8 py-5 text-cyber-blue font-black">{egg.code}</td>
                             <td className="px-8 py-5 uppercase text-xs">
-                              {typeof egg.reward_value === 'string' ? egg.reward_value : 'DATA_NODE'}
+                              {egg.reward_value || 'DATA_NODE'}
                             </td>
                             <td className="px-8 py-5">
                                <span className={cn("text-[10px] px-2 py-1 rounded", !egg.is_active ? 'bg-white/10 text-white/40' : 'bg-cyber-green/20 text-cyber-green font-black')}>

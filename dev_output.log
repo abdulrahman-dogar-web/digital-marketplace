@@ -139,3 +139,86 @@ Killed
  ✓ Compiled in 1760ms (1530 modules)
  ✓ Compiled in 544ms (1530 modules)
 <w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: too many length or distance symbols
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: too many length or distance symbols
+ ✓ Compiled in 33.7s (3010 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename '/app/.next/cache/webpack/client-development/0.pack.gz_' -> '/app/.next/cache/webpack/client-development/0.pack.gz'
+ ✓ Compiled in 1266ms (1530 modules)
+ ✓ Compiled in 780ms (1530 modules)
+ ✓ Compiled in 447ms (1530 modules)
+ ✓ Compiled in 475ms (1530 modules)
+ ✓ Compiled in 1715ms (2912 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename '/app/.next/cache/webpack/client-development/0.pack.gz_' -> '/app/.next/cache/webpack/client-development/0.pack.gz'
+ ✓ Compiled in 506ms (1530 modules)
+ ✓ Compiled in 301ms (1530 modules)
+ ✓ Compiled in 536ms (1530 modules)
+ ✓ Compiled in 2.1s (2912 modules)
+ ✓ Compiled in 1120ms (1530 modules)
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 1048ms (2902 modules)
+ GET / 404 in 1407ms
+ GET /_next/static/css/app/layout.css?v=1779969876279 404 in 63ms
+ GET /_next/static/media/22a5144ee8d83bca-s.p.woff2 404 in 116ms
+ GET /_next/static/media/f5271587012faf78-s.p.woff2 404 in 112ms
+ GET /_next/static/chunks/main-app.js?v=1779969876279 404 in 54ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 55ms
+ ○ Compiling /marketplace ...
+ ✓ Compiled /marketplace in 931ms (1396 modules)
+ GET /marketplace 200 in 2363ms
+ GET /_next/static/css/app/layout.css?v=1779969887679 404 in 66ms
+ GET /_next/static/media/22a5144ee8d83bca-s.p.woff2 404 in 132ms
+ GET /_next/static/media/f5271587012faf78-s.p.woff2 404 in 131ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 80ms
+ GET /_next/static/chunks/main-app.js?v=1779969887679 404 in 84ms
+ GET /_next/static/chunks/app/marketplace/page.js 404 in 68ms
+ ⨯ Error: Cannot find module './638.js'
+Require stack:
+- /app/.next/server/webpack-runtime.js
+- /app/.next/server/app/marketplace/page.js
+- /app/node_modules/next/dist/server/require.js
+- /app/node_modules/next/dist/server/load-components.js
+- /app/node_modules/next/dist/build/utils.js
+- /app/node_modules/next/dist/build/swc/options.js
+- /app/node_modules/next/dist/build/swc/index.js
+- /app/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /app/node_modules/next/dist/server/config.js
+- /app/node_modules/next/dist/server/next.js
+- /app/node_modules/next/dist/server/lib/start-server.js
+    at __webpack_require__.f.require (.next/server/webpack-runtime.js:198:28)
+    at <unknown> (.next/server/webpack-runtime.js:111:40)
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (.next/server/webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (.next/server/webpack-runtime.js:162:22)
+    at <unknown> (.next/server/app/page.js:1:17140)
+    at Object.<anonymous> (.next/server/app/page.js:1:17197) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/'
+}
+ ⨯ Error: Cannot find module './627.js'
+Require stack:
+- /app/.next/server/webpack-runtime.js
+- /app/.next/server/app/marketplace/page.js
+- /app/node_modules/next/dist/server/require.js
+- /app/node_modules/next/dist/server/load-components.js
+- /app/node_modules/next/dist/build/utils.js
+- /app/node_modules/next/dist/build/swc/options.js
+- /app/node_modules/next/dist/build/swc/index.js
+- /app/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /app/node_modules/next/dist/server/config.js
+- /app/node_modules/next/dist/server/next.js
+- /app/node_modules/next/dist/server/lib/start-server.js
+    at __webpack_require__.f.require (.next/server/webpack-runtime.js:198:28)
+    at <unknown> (.next/server/webpack-runtime.js:111:40)
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (.next/server/webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (.next/server/webpack-runtime.js:162:22)
+    at <unknown> (.next/server/pages/_document.js:1:339)
+    at Object.<anonymous> (.next/server/pages/_document.js:1:381) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ GET / 500 in 3203ms
+ ✓ Compiled in 1846ms (1530 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename '/app/.next/cache/webpack/client-development/1.pack.gz_' -> '/app/.next/cache/webpack/client-development/1.pack.gz'

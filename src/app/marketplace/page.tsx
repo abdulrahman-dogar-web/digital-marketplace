@@ -8,6 +8,7 @@ import { Search, Filter, SlidersHorizontal, Grid, List, TrendingUp, Sparkles, Cl
 import { GlassCard } from '@/components/ui/GlassCard';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
+import { supabase } from '@/lib/supabase';
 
 const MOCK_CATEGORIES: Category[] = [
   { id: '1', name: 'Automation', slug: 'automation', icon: '🤖' },
@@ -29,9 +30,14 @@ export default function MarketplacePage() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await fetch('/api/products');
-        const data = await res.json();
-        setProducts(data);
+        const { data, error } = await supabase
+          .from('products')
+          .select('*')
+          .eq('status', 'published')
+          .eq('is_approved', true);
+
+        if (error) throw error;
+        setProducts(data as Product[]);
       } catch (err) {
         console.error('Neural Link Failure:', err);
       } finally {
@@ -44,7 +50,7 @@ export default function MarketplacePage() {
   const filteredProducts = products.filter(p => {
     const matchesSearch = p.name.toLowerCase().includes(search.toLowerCase()) ||
                           p.description?.toLowerCase().includes(search.toLowerCase());
-    const matchesCategory = !activeCategory || p.category?.name === activeCategory;
+    const matchesCategory = !activeCategory || p.category_id === activeCategory;
     const matchesRarity = activeRarity === 'All' || p.rarity === activeRarity;
     return matchesSearch && matchesCategory && matchesRarity;
   });
@@ -120,10 +126,10 @@ export default function MarketplacePage() {
                 {MOCK_CATEGORIES.map((cat) => (
                   <button
                     key={cat.id}
-                    onClick={() => setActiveCategory(cat.name)}
+                    onClick={() => setActiveCategory(cat.id)}
                     className={cn(
                       'flex items-center justify-between w-full px-3 py-2.5 rounded text-sm transition-all',
-                      activeCategory === cat.name ? 'bg-cyber-blue/10 text-cyber-blue font-bold border border-cyber-blue/20' : 'text-white/40 hover:text-white/70 hover:bg-white/5'
+                      activeCategory === cat.id ? 'bg-cyber-blue/10 text-cyber-blue font-bold border border-cyber-blue/20' : 'text-white/40 hover:text-white/70 hover:bg-white/5'
                     )}
                   >
                     <span className="flex items-center gap-3">

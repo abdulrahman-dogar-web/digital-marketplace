@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Product } from '@/types';
+import { supabase } from '@/lib/supabase';
 
 export default function SellerDashboard() {
   const [assets, setAssets] = useState<Product[]>([]);
@@ -25,34 +26,44 @@ export default function SellerDashboard() {
   const [newAsset, setNewAsset] = useState({ name: '', price: '', rarity: 'Common', description: '' });
 
   // In a real app, this would be the logged in user's ID
-  const sellerId = "seller-mock-uuid";
+  const sellerId = "77777777-7777-7777-7777-777777777777"; // Match seed seller ID
 
   const fetchAssets = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await fetch('/api/products');
-      const data = await res.json();
-      setAssets(data);
+      const { data, error } = await supabase
+        .from('products')
+        .select('*')
+        .eq('seller_id', sellerId);
+
+      if (error) throw error;
+      setAssets(data as Product[]);
     } catch (err) {
       console.error('Asset retrieval failed', err);
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [sellerId]);
 
   useEffect(() => { fetchAssets(); }, [fetchAssets]);
 
   const handleAddAsset = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await fetch('/api/products', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...newAsset,
-          sellerId,
-        })
-      });
+      const { error } = await supabase
+        .from('products')
+        .insert([{
+          name: newAsset.name,
+          price: parseFloat(newAsset.price),
+          rarity: newAsset.rarity,
+          description: newAsset.description,
+          seller_id: sellerId,
+          status: 'published',
+          is_approved: false // Requires admin approval
+        }]);
+
+      if (error) throw error;
+
       setIsModalOpen(false);
       setNewAsset({ name: '', price: '', rarity: 'Common', description: '' });
       fetchAssets();

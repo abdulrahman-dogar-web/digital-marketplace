@@ -133,7 +133,7 @@ export interface EasterEgg {
   id: string;
   code: string;
   reward_type: 'discount' | 'xp' | 'badge' | 'vault_access';
-  reward_value: unknown;
+  reward_value: string | number | null;
   is_active: boolean;
 }
 

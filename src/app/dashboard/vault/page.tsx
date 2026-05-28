@@ -16,18 +16,26 @@ import {
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { Transaction } from '@/types';
+import { supabase } from '@/lib/supabase';
 
 export default function UserVault() {
   const [activeTab, setActiveTab] = useState<'acquisitions' | 'intel' | 'security'>('acquisitions');
   const [acquisitions, setAcquisitions] = useState<Transaction[]>([]);
   const [loading, setLoading] = useState(true);
 
+  // In a real app, this would be the logged in user's ID
+  const userId = "88888888-8888-8888-8888-888888888888";
+
   useEffect(() => {
     const fetchVault = async () => {
       try {
-        const res = await fetch('/api/transactions');
-        const data = await res.json();
-        setAcquisitions(data);
+        const { data, error } = await supabase
+          .from('transactions')
+          .select('*, product:products(*)')
+          .eq('user_id', userId);
+
+        if (error) throw error;
+        setAcquisitions(data as Transaction[]);
       } catch (err) {
         console.error('Vault access denied', err);
       } finally {
@@ -35,7 +43,7 @@ export default function UserVault() {
       }
     };
     fetchVault();
-  }, []);
+  }, [userId]);
 
   return (
     <GlobalLayout>
@@ -107,7 +115,7 @@ export default function UserVault() {
                                     <div>
                                        <h3 className="text-xl font-black uppercase tracking-tighter text-white mb-1">{tx.product?.name}</h3>
                                        <div className="text-[10px] text-white/30 font-mono uppercase tracking-widest">
-                                         {tx.product?.id?.slice(0, 8)} | {tx.created_at || tx.date ? new Date((tx.created_at || tx.date) as string).toLocaleDateString() : 'SYNC_PENDING'}
+                                         {tx.product?.id?.slice(0, 8)} | {tx.created_at ? new Date(tx.created_at).toLocaleDateString() : 'SYNC_PENDING'}
                                        </div>
                                     </div>
                                     <span className={cn(
